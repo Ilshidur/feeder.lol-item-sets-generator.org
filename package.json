@@ -1,0 +1,24 @@
+{
+  "name": "feeder.lol-item-sets-generator.org",
+  "version": "0.0.1-alpha",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ilshidur/feeder.lol-item-sets-generator.org.git"
+  },
+  "author": "Ilshidur <ilshidur@gmail.com> (https://www.nicolas-coutin.fr)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ilshidur/feeder.lol-item-sets-generator.org/issues"
+  },
+  "homepage": "https://github.com/Ilshidur/feeder.lol-item-sets-generator.org#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "league-sprites": "0.0.1-alpha"
+  }
+}

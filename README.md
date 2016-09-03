@@ -1,1 +1,1 @@
-# feeder.lol-item-sets-generator.org
+# [feeder.lol-item-sets-generator.org](https://feeder.lol-item-sets-generator.org)
