@@ -1,13 +1,13 @@
-var express = require('express');
-var config = require('./config');
-var routes = require('./routes');
+import express  from 'express';
+import config  from './config';
+import routes  from './routes';
 
-var app = express();
+const app = express();
 
 app.use('/', routes.index);
 app.use('/sprites', routes.sprites);
 app.use('/tooltips', routes.tooltips);
 
-app.listen(config.port, function () {
+app.listen(config.port, () => {
   console.log('Listening on port ' + config.port);
 });

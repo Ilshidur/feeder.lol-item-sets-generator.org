@@ -1,14 +1,14 @@
-var sprites = require('./sprites');
-var tooltips = require('./tooltips');
+import sprites from './sprites';
+import tooltips from './tooltips';
 
-var index = function (req, res, next) {
+const index = (req, res, next) => {
   res.send('What the hell are you doing here ?');
 };
 
-var routes = {
+const routes = {
   index: index,
   sprites: sprites,
   tooltips: tooltips
 };
 
-module.exports = routes;
+export default routes;

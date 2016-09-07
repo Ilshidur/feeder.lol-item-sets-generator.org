@@ -1,7 +1,9 @@
-var router = require('express').Router();
+import express from 'express';
+import leagueTips from 'league-tooltips';
+import config from '../config';
 
-router.get('/', function (req, res, next) {
-  res.send('What the hell are you doing here ?');
-});
+const router = express.Router();
 
-module.exports = router;
+router.use(leagueTips(config.key.riot, '/', { fileName: 'league-tips.min.js' }));
+
+export default router;
