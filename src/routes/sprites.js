@@ -1,30 +1,46 @@
 import express from 'express';
+import path from 'path';
+import config from '../config';
+import { outputErr } from './log';
 
 const router = express.Router();
 
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
   res.send('What the hell are you doing here ?');
 });
 
-/*var Generator = require('league-sprites');
-var spritesGenerator = new Generator({
-  dataType: 'ChampionIcons',
-  apiKey: 'API_KEY',
-  region: 'euw',
-  patch: undefined, // optional
-  stylesheetFormat: 'css',
-  downloadFolder: 'img/',
-  spritePath: 'sprites/sprite.png',
-  stylesheetPath: 'sprites/sprite.css',
-  finalSpritesheetFolder: 'sprites/compressed/'
+router.get('/sprite.css', (req, res, next) => {
+  var options = {
+    root: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder),
+    dotfiles: 'deny',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+  };
+  res.sendFile(path.join(config.path.sprites.stylesheetName), options, function (err) {
+    if (err) {
+      outputErr(err);
+      res.status(err.status).end();
+    }
+  });
 });
 
-spritesGenerator.generate()
-  .then(function () {
-    console.log('Done !');
-  })
-  .catch(function (e) {
-    console.error(e);
-  });*/
+router.get('/sprite.png', (req, res, next) => {
+  var options = {
+    root: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder),
+    dotfiles: 'deny',
+    headers: {
+        'x-timestamp': Date.now(),
+        'x-sent': true
+    }
+  };
+  res.sendFile(path.join(config.path.sprites.spritesheetName), options, function (err) {
+    if (err) {
+      outputErr(err);
+      res.status(err.status).end();
+    }
+  });
+});
 
 export default router;
