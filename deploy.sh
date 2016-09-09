@@ -13,7 +13,7 @@ printf "`date +%Y-%m-%d` : Trying ...\n" >> deploy.log
 
 #PM2
 echo "Cheking PM2 ..."
-if npm list -g | grep pm2
+if npm list -g --depth=0 | grep pm2
 then
 	echo "PM2 already installed."
 else
