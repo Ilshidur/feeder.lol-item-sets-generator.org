@@ -8,18 +8,22 @@ The sets are generated regularly with a cron task and stored in a MongoDB databa
 
 ## Contribute
 
-Installing :
+* Installing :
+
+**REQUIRED** : This project uses [node-canvas](https://github.com/Automattic/node-canvas) (from [node-sprite-generator](https://github.com/selaux/node-sprite-generator)).
+
+Installation instructions [**here**](https://github.com/Automattic/node-canvas/wiki/_pages).
 
 ```bash
 git clone https://github.com/Ilshidur/feeder.lol-item-sets-generator.org feeder.lol-item-sets-generator.org
 cd $_
 ```
 
-Running the tool :
+* Running the tool :
 
-* Build : `npm run build`
-* Set the required env variables as shown in the ecosystem.samle.json5
-* Start : `npm start`
+ * Build : `npm run build`
+ * Set the required env variables as shown in the ecosystem.samle.json5
+ * Start : `npm start`
 
 ## Licence
 
