@@ -191,12 +191,14 @@ const run = () => new Promise(async (resolve, reject) => {
     stylesheetFormat: 'css',
     downloadFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.downloadFolder),
     spritePath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolderTmp, config.path.sprites.spritesheetName),
+    spriteLink: config.path.sprites.spritesheetLink,
     stylesheetPath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName),
     finalSpritesheetFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder)
   };
 
   try {
     const spritesGenerator = new SpriteGenerator(generatorOpts);
+    console.log(spritesGenerator.spriteLink);
     await spritesGenerator.generate();
   } catch (e) {
     reject(e);

@@ -6,6 +6,7 @@
       "script": "dist/index.js",
       "env": {
         "NODE_ENV": "production",
+        "HOST": "http://domain.tld",
         "CRON_GENERATOR": "0 */2 * * *", // Every 2 hours
         "MONGO_URI": "mongodb://localhost:27017/lol-item-sets-generator-org",
         "KEY_CHAMPIONGG": "API_KEY",

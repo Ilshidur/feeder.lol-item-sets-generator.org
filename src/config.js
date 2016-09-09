@@ -1,4 +1,8 @@
 import path from 'path';
+import slash from 'slash';
+
+const LOCALHOST = 'localhost' + (process.env.PORT ? ':' + process.env.PORT : '');
+const HOST = process.env.HOST || LOCALHOST;
 
 export default {
   env: process.env.NODE_ENV,
@@ -6,6 +10,7 @@ export default {
   port: process.env.PORT || 3000,
 
   rootPath: path.join(__dirname, '../'),
+  host: HOST,
 
   mongo: {
     uri: process.env.MONGO_URI || 'mongodb://localhost:27017/lol-item-sets-generator-org',
@@ -44,7 +49,9 @@ export default {
       // output/sprites/sprite.png :
       spritesheetName: 'sprite.png',
       // output/sprites/sprite.css :
-      stylesheetName: 'sprite.css'
+      stylesheetName: 'sprite.css',
+
+      spritesheetLink: slash(path.join(HOST, 'sprites/sprite.png'))
     }
   },
 
