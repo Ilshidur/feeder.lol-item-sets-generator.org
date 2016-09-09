@@ -1,7 +1,7 @@
 import express from 'express';
 import path from 'path';
 import config from '../config';
-import { outputErr } from './log';
+import { outputErr } from '../log';
 
 const router = express.Router();
 
