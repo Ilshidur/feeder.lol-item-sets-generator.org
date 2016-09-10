@@ -1,15 +1,15 @@
-var gulp = require('gulp');
-var babel = require('gulp-babel');
-var runSequence = require('run-sequence');
-var del = require('del');
+import gulp from 'gulp';
+import babel from 'gulp-babel';
+import runSequence from 'run-sequence';
+import del from 'del';
 
-gulp.task('clean', function () {
+gulp.task('clean', () => {
   return del([
     'dist'
   ]);
 });
 
-gulp.task('build', function () {
+gulp.task('build', () => {
   return gulp.src('src/**/*.js')
   .pipe(babel({
     presets: ['es2015'],
@@ -18,7 +18,7 @@ gulp.task('build', function () {
   .pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', function (callback) {
+gulp.task('default', (callback) => {
   runSequence(
     'clean',
     'build',
