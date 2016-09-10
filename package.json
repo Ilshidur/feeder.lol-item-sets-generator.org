@@ -29,7 +29,6 @@
     "lodash": "^4.6.1",
     "mongoose": "^4.4.6",
     "node-rest-client": "^1.8.0",
-    "slash": "^1.0.0",
     "x-ray": "^2.3.0",
     "zip-folder": "^1.0.0"
   },

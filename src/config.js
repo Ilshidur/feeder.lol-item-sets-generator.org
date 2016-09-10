@@ -1,5 +1,5 @@
 import path from 'path';
-import slash from 'slash';
+import url from 'url';
 
 const LOCALHOST = 'localhost' + (process.env.PORT ? ':' + process.env.PORT : '');
 const HOST = process.env.HOST || LOCALHOST;
@@ -51,7 +51,7 @@ export default {
       // output/sprites/sprite.css :
       stylesheetName: 'sprite.css',
 
-      spritesheetLink: slash(path.join(HOST, 'sprites/sprite.png'))
+      spritesheetLink: url.resolve(HOST, 'sprites/sprite.png')
     }
   },
 
