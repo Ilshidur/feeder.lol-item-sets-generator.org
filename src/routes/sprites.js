@@ -18,7 +18,8 @@ router.get('/sprite.css', (req, res, next) => {
         'x-sent': true
     }
   };
-  res.sendFile(path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName), options, function (err) {
+  console.log(path.join(config.path.rootPath, config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName));
+  res.sendFile(path.join(config.path.rootPath, config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName), options, function (err) {
     if (err) {
       outputErr(err);
       res.status(err.status).end();
