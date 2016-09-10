@@ -11,14 +11,14 @@ router.get('/', (req, res, next) => {
 
 router.get('/sprite.css', (req, res, next) => {
   var options = {
-    root: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder),
+    // root: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder),
     dotfiles: 'deny',
     headers: {
         'x-timestamp': Date.now(),
         'x-sent': true
     }
   };
-  res.sendFile(path.join(config.path.sprites.stylesheetName), options, function (err) {
+  res.sendFile(path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName), options, function (err) {
     if (err) {
       outputErr(err);
       res.status(err.status).end();
@@ -28,14 +28,14 @@ router.get('/sprite.css', (req, res, next) => {
 
 router.get('/sprite.png', (req, res, next) => {
   var options = {
-    root: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder),
+    // root: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder),
     dotfiles: 'deny',
     headers: {
         'x-timestamp': Date.now(),
         'x-sent': true
     }
   };
-  res.sendFile(path.join(config.path.sprites.spritesheetName), options, function (err) {
+  res.sendFile(path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.spritesheetName), options, function (err) {
     if (err) {
       outputErr(err);
       res.status(err.status).end();
