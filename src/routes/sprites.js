@@ -18,7 +18,6 @@ router.get('/sprite.css', (req, res, next) => {
         'x-sent': true
     }
   };
-  console.log(path.join(config.rootPath, config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName));
   res.sendFile(path.join(config.rootPath, config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName), options, function (err) {
     if (err) {
       outputErr(err);
@@ -36,7 +35,7 @@ router.get('/sprite.png', (req, res, next) => {
         'x-sent': true
     }
   };
-  res.sendFile(path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.spritesheetName), options, function (err) {
+  res.sendFile(path.join(config.rootPath, config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.spritesheetName), options, function (err) {
     if (err) {
       outputErr(err);
       res.status(err.status).end();
