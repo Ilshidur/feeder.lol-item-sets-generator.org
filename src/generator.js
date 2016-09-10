@@ -198,7 +198,6 @@ const run = () => new Promise(async (resolve, reject) => {
 
   try {
     const spritesGenerator = new SpriteGenerator(generatorOpts);
-    console.log(spritesGenerator.spriteLink);
     await spritesGenerator.generate();
   } catch (e) {
     reject(e);
