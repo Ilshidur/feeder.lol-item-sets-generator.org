@@ -189,6 +189,7 @@ const run = () => new Promise(async (resolve, reject) => {
     region: 'euw',
     patch: PATCH,
     stylesheetFormat: 'css',
+    stylesheetLayout: 'horizontal',
     downloadFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.downloadFolder),
     spritePath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolderTmp, config.path.sprites.spritesheetName),
     spriteLink: config.path.sprites.spritesheetLink,
