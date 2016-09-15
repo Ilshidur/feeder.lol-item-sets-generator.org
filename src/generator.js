@@ -183,29 +183,47 @@ const run = () => new Promise(async (resolve, reject) => {
 
   outputLog('Generating the sprites ...');
 
-  const generatorOpts = {
-    dataType: 'ChampionIcon',
-    apiKey: config.key.riot,
-    region: 'euw',
-    patch: PATCH,
-    stylesheetFormat: 'css',
-    stylesheetLayout: 'horizontal',
-    downloadFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.downloadFolder),
-    spritePath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolderTmp, config.path.sprites.spritesheetName),
-    spriteLink: config.path.sprites.spritesheetLink,
-    stylesheetPath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName),
-    finalSpritesheetFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder)
-  };
+  const sprites = ['champions', 'items'];
 
-  try {
-    const spritesGenerator = new SpriteGenerator(generatorOpts);
-    await spritesGenerator.generate();
-  } catch (e) {
-    reject(e);
-    return;
+  for (const spriteType of sprites) {
+    let dataType = '';
+    switch (spriteType) {
+      case 'champions':
+        dataType = 'ChampionIcon';
+        break;
+      case 'items':
+        dataType = 'ItemIcon';
+        break;
+      default:
+        reject(e);
+        return;
+    }
+    const generatorOpts = {
+      dataType: dataType,
+      apiKey: config.key.riot,
+      region: 'euw',
+      patch: PATCH,
+      stylesheetFormat: 'css',
+      stylesheetLayout: 'horizontal',
+      downloadFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.downloadFolder),
+      spritePath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolderTmp, config.path.sprites.spritesheetName[spriteType]),
+      spriteLink: config.path.sprites.spritesheetLink[spriteType],
+      stylesheetPath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName[spriteType]),
+      finalSpritesheetFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder)
+    };
+
+    try {
+      outputLog(`Generating the ${dataType} sprites ...`);
+      const spritesGenerator = new SpriteGenerator(generatorOpts);
+      await spritesGenerator.generate();
+      outputLog(`Generating the ${dataType} sprites : done !`);
+    } catch (e) {
+      reject(e);
+      return;
+    }
   }
 
-  outputLog('Generating the sprites : done !');
+  outputLog('Generation : done !');
 
   resolve();
 });

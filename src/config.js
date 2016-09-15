@@ -46,12 +46,22 @@ export default {
       spritesheetFolderTmp: 'sprites_uncompressed',
 
       spritesheetFolder: 'sprites',
-      // output/sprites/sprite.png :
-      spritesheetName: 'sprite.png',
-      // output/sprites/sprite.css :
-      stylesheetName: 'sprite.css',
 
-      spritesheetLink: url.resolve(HOST, 'sprites/sprite.png')
+      // output/sprites/champions.png :
+      spritesheetName: {
+        champions: 'champions.png',
+        items: 'items.png'
+      },
+      // output/sprites/champions.css :
+      stylesheetName: {
+        champions: 'champions.css',
+        items: 'items.css'
+      },
+
+      spritesheetLink: {
+        champions: url.resolve(HOST, 'sprites/champions.png'),
+        items: url.resolve(HOST, 'sprites/items.png'),
+      }
     }
   },
 
