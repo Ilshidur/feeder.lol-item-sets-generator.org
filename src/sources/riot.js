@@ -5,7 +5,7 @@ import config from '../config';
 
 const API_RIOT = 'global.api.pvp.net/api/lol';
 
-const PROD = config.env === 'production' ? true : false;
+const PROD = config.env === 'production';
 
 const getDatas = () => new Promise(async (resolve, reject) => {
 

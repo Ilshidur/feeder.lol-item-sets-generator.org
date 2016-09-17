@@ -6,7 +6,7 @@ import config from '../config';
 
 const API_CHAMPIONGG = 'api.champion.gg';
 
-const PROD = config.env === 'production' ? true : false;
+const PROD = config.env === 'production';
 
 const getDatas = () => new Promise(async (resolve, reject) => {
 

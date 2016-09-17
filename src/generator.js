@@ -11,7 +11,7 @@ import { saveMongoDocument } from './db';
 import ItemSetDocument from './models/item_set';
 import config from './config';
 
-const PROD = config.env === 'production' ? true : false;
+const PROD = config.env === 'production';
 
 const DATA_GETTERS = {
   'riot': require('./sources/riot.js').default,

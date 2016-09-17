@@ -4,7 +4,7 @@ import config from '../config';
 
 const x = Xray();
 
-const PROD = config.env === 'production' ? true : false;
+const PROD = config.env === 'production';
 
 const getChampions = () => new Promise((resolve, reject) => {
   x('http://www.probuilds.net/champions', '.champion-results', ['li@data-id'])((err, result) => {
