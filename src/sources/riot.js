@@ -18,10 +18,10 @@ const getDatas = () => new Promise(async (resolve, reject) => {
     outputLog('[Riot] Init REST client ...');
   }
   const client = new Client();
+  client.on('error', (err) => {
+    reject(err);
+  });
   try {
-    client.on('error', (err) => {
-      reject(err);
-    });
     client.registerMethod('getPatch', link('https', API_RIOT, '/static-data/euw/v1.2/versions'), 'GET');
     // Promisify all the registered methods
     promisifyNodeClient(client);
