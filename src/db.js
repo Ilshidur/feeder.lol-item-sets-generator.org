@@ -14,6 +14,18 @@ function disconnectMongo () {
   mongoose.disconnect();
 }
 
+function findAndUpdateMongoDocument (doc, query, newData) {
+  return new Promise((resolve, reject) => {
+    doc.findOneAndUpdate(query, newData, { upsert: true }, (err, doc) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(doc);
+      }
+    });
+  });
+}
+
 function saveMongoDocument (doc) {
   return new Promise((resolve, reject) => {
     doc.save(err => {
@@ -26,4 +38,4 @@ function saveMongoDocument (doc) {
   });
 }
 
-export { connectMongo, disconnectMongo, saveMongoDocument };
+export { connectMongo, disconnectMongo, findAndUpdateMongoDocument, saveMongoDocument };

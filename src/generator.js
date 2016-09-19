@@ -7,8 +7,10 @@ import { Client } from 'node-rest-client';
 import { Generator as SpriteGenerator } from 'league-sprites';
 import { promisifyNodeClient, saveFile, zipItems } from './utils';
 import { outputLog } from './log';
-import { saveMongoDocument } from './db';
+import { findAndUpdateMongoDocument, saveMongoDocument } from './db';
 import ItemSetDocument from './models/item_set';
+import ChampionDocument from './models/champion';
+import ItemDocument from './models/item';
 import config from './config';
 
 const PROD = config.env === 'production';
@@ -79,6 +81,38 @@ const run = () => new Promise(async (resolve, reject) => {
   }
   if (!PROD) {
     outputLog(`Deleting last tmp folder : done !`);
+  }
+
+  // Saving the champions and items in the database
+  const champions = datas['riot'].champions;
+  if (!PROD) {
+    outputLog(`Saving the champions in the database ...`);
+  }
+  for (const champion of champions) {
+    try {
+      await findAndUpdateMongoDocument(ChampionDocument, { id: champion.id }, champion);
+    } catch (e) {
+      reject(e);
+      return;
+    }
+  }
+  if (!PROD) {
+    outputLog(`Saving the champions in the database : done !`);
+  }
+  const items = datas['riot'].items;
+  if (!PROD) {
+    outputLog(`Saving the items in the database ...`);
+  }
+  for (const item of items) {
+    try {
+      await findAndUpdateMongoDocument(ItemDocument, { id: item.id }, item);
+    } catch (e) {
+      reject(e);
+      return;
+    }
+  }
+  if (!PROD) {
+    outputLog(`Saving the items in the database : done !`);
   }
 
   // Temp list of SetSchema (./models/item_sets.js)
@@ -166,7 +200,7 @@ const run = () => new Promise(async (resolve, reject) => {
   if (!PROD) {
     outputLog(`Saving the sets in the database ...`);
   }
-  var itemSet = new ItemSetDocument({
+  const itemSet = new ItemSetDocument({
     generationDate: Date.now(),
     patchVersion: PATCH,
     sets: itemSetsList
