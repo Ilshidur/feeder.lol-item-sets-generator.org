@@ -5,6 +5,7 @@ var SetSchema = new mongoose.Schema({
   champion: String,
   role: String,
   isCustom: Boolean,
+  author: String,
   itemBlocks: [new mongoose.Schema({
     items: [new mongoose.Schema({
       count: Number,

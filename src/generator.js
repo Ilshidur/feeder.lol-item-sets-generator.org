@@ -151,6 +151,7 @@ const run = () => new Promise(async (resolve, reject) => {
         champion: fileData.champion,
         role: fileData.role,
         isCustom: false,
+        author: null,
         itemBlocks: fileData.blocks
       });
     } catch (e) {
