@@ -1,10 +1,15 @@
 # [feeder.lol-item-sets-generator.org](https://feeder.lol-item-sets-generator.org)
 
-The https://lol-item-sets-generator.org/ sets builder. Will soon be totally open-sourced.
+The https://lol-item-sets-generator.org/ sets builder.
 
 This project builds the best League of Legends recommended items for the website LoL Item Sets Generator.
 
-The sets are generated regularly with a cron task and stored in a MongoDB database.
+## What does this code generates
+
+* generates the item sets regularly with a cron task and store them in a MongoDB database
+* saves the setsto a given location
+* imports the champions and items in a MongoDB database
+* generates the champions/items sprites and serves them with [express](https://github.com/expressjs/express)
 
 ## Contribute
 
