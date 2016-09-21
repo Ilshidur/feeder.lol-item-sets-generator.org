@@ -145,7 +145,7 @@ const run = () => new Promise(async (resolve, reject) => {
          skills += ' - ' + formatSkills(champData.skills.highestWinPercent.order) + ` (${champData.skills.highestWinPercent.winPercent}% win - ${champData.skills.highestWinPercent.games} games)`;
       }
       const fileData = {
-        title: `${champData.role} ${PATCH} (LISG)`,
+        title: `${PATCH} ${champData.role} (LISG)`,
         champion: champData.key,
         role: champData.role,
         blocks: [{
