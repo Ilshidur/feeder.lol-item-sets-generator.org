@@ -1,5 +1,7 @@
 # [feeder.lol-item-sets-generator.org](https://feeder.lol-item-sets-generator.org)
 
+[![Slack Status](https://slack.lol-item-sets-generator.org/badge.svg)](https://slack.lol-item-sets-generator.org/)
+
 The https://lol-item-sets-generator.org/ sets builder.
 
 This project builds the best League of Legends recommended items for the website LoL Item Sets Generator.
