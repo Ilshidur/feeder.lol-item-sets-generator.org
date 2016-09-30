@@ -11,6 +11,7 @@ import { findAndUpdateMongoDocument, saveMongoDocument } from './db';
 import ItemSetDocument from './models/item_set';
 import ChampionDocument from './models/champion';
 import ItemDocument from './models/item';
+import PatchVersionDocument from './models/patch_version';
 import config from './config';
 
 const PROD = config.env === 'production';
@@ -83,7 +84,7 @@ const run = () => new Promise(async (resolve, reject) => {
     outputLog(`Deleting last tmp folder : done !`);
   }
 
-  // Saving the champions and items in the database
+  // Saving the champions, items and patch version in the database
   const champions = datas['riot'].champions;
   if (!PROD) {
     outputLog(`Saving the champions in the database ...`);
@@ -113,6 +114,22 @@ const run = () => new Promise(async (resolve, reject) => {
   }
   if (!PROD) {
     outputLog(`Saving the items in the database : done !`);
+  }
+  if (!PROD) {
+    outputLog(`Saving the patch version in the database ...`);
+  }
+  try {
+    const patchVersionDoc = {
+      patchVersion: PATCH,
+      importDate: Date.now()
+    };
+    await findAndUpdateMongoDocument(PatchVersionDocument, { patchVersion: PATCH }, patchVersionDoc);
+  } catch (e) {
+    reject(e);
+    return;
+  }
+  if (!PROD) {
+    outputLog(`Saving the patch version in the database : done !`);
   }
 
   // Temp list of SetSchema (./models/item_sets.js)
