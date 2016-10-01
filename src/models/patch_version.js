@@ -1,11 +1,7 @@
 import mongoose from 'mongoose';
 
 var PatchVersionSchema = new mongoose.Schema({
-  index: Number,
-  id: Number,
-  key: String,
-  name: String,
-  importPatch: String,
+  patchVersion: String,
   importDate: Date
 });
 
