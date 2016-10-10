@@ -1,4 +1,5 @@
 import express from 'express';
+import leagueTips from 'league-tooltips';
 import runTask from './cronTask';
 import taskGenerator from './cronTasks/generator';
 import config from './config';
@@ -7,6 +8,8 @@ import routes from './routes';
 // ==== Server ====
 
 const app = express();
+
+app.use(leagueTips(config.key.riot, 'euw', { url: '/tooltips', fileName: 'league-tips.min.js', protocol: 'https' }));
 
 app.use('/sprites', routes.sprites);
 app.use('/tooltips', routes.tooltips);
