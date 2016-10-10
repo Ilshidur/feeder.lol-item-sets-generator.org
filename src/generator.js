@@ -69,8 +69,6 @@ const run = () => new Promise(async (resolve, reject) => {
 
   // == REQUESTS : Done.
 
-  const PATCH = datas['riot'].patch;
-
   if (!PROD) {
     outputLog(`Deleting last tmp folder ...`);
   }
@@ -84,52 +82,66 @@ const run = () => new Promise(async (resolve, reject) => {
     outputLog(`Deleting last tmp folder : done !`);
   }
 
-  // Saving the champions, items and patch version in the database
-  const champions = datas['riot'].champions;
-  if (!PROD) {
-    outputLog(`Saving the champions in the database ...`);
-  }
-  for (const champion of champions) {
+  const riotPatch = datas['riot'].patch;
+  const championGGPatch = datas['championgg'].patch;
+  const PATCH = datas['riot'].patch;
+  // Only save the datas in the database if the Riot patch and the ChampionGG patch are equal
+  // It prevents datas conflicts
+  if (riotPatch.startsWith(championGGPatch)) {
+    if (!PROD) {
+      outputLog(`Riot patch equals ChampionGG patch !`);
+    }
+    // Saving the champions, items and patch version in the database
+    const champions = datas['riot'].champions;
+    if (!PROD) {
+      outputLog(`Saving the champions in the database ...`);
+    }
+    for (const champion of champions) {
+      try {
+        await findAndUpdateMongoDocument(ChampionDocument, { id: champion.id }, champion);
+      } catch (e) {
+        reject(e);
+        return;
+      }
+    }
+    if (!PROD) {
+      outputLog(`Saving the champions in the database : done !`);
+    }
+    const items = datas['riot'].items;
+    if (!PROD) {
+      outputLog(`Saving the items in the database ...`);
+    }
+    for (const item of items) {
+      try {
+        await findAndUpdateMongoDocument(ItemDocument, { id: item.id }, item);
+      } catch (e) {
+        reject(e);
+        return;
+      }
+    }
+    if (!PROD) {
+      outputLog(`Saving the items in the database : done !`);
+    }
+    if (!PROD) {
+      outputLog(`Saving the patch version in the database ...`);
+    }
     try {
-      await findAndUpdateMongoDocument(ChampionDocument, { id: champion.id }, champion);
+      const patchVersionDoc = {
+        patchVersion: PATCH,
+        importDate: Date.now()
+      };
+      await findAndUpdateMongoDocument(PatchVersionDocument, { patchVersion: PATCH }, patchVersionDoc);
     } catch (e) {
       reject(e);
       return;
     }
-  }
-  if (!PROD) {
-    outputLog(`Saving the champions in the database : done !`);
-  }
-  const items = datas['riot'].items;
-  if (!PROD) {
-    outputLog(`Saving the items in the database ...`);
-  }
-  for (const item of items) {
-    try {
-      await findAndUpdateMongoDocument(ItemDocument, { id: item.id }, item);
-    } catch (e) {
-      reject(e);
-      return;
+    if (!PROD) {
+      outputLog(`Saving the patch version in the database : done !`);
     }
-  }
-  if (!PROD) {
-    outputLog(`Saving the items in the database : done !`);
-  }
-  if (!PROD) {
-    outputLog(`Saving the patch version in the database ...`);
-  }
-  try {
-    const patchVersionDoc = {
-      patchVersion: PATCH,
-      importDate: Date.now()
-    };
-    await findAndUpdateMongoDocument(PatchVersionDocument, { patchVersion: PATCH }, patchVersionDoc);
-  } catch (e) {
-    reject(e);
-    return;
-  }
-  if (!PROD) {
-    outputLog(`Saving the patch version in the database : done !`);
+  } else {
+    if (!PROD) {
+      outputLog(`Riot patch : ${riotPatch}, ChampionGG patch ; ${championGGPatch} : not saving the champions/items`);
+    }
   }
 
   // Temp list of SetSchema (./models/item_sets.js)

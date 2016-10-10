@@ -24,6 +24,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
     reject(err);
   });
   try {
+    client.registerMethod('getPatch', link('http', API_CHAMPIONGG, '/stats/overall'), 'GET');
     client.registerMethod('getChampions', link('http', API_CHAMPIONGG, '/champion'), 'GET');
     client.registerMethod('getChampionDatas', link('http', API_CHAMPIONGG, '/champion/${name}'), 'GET');
     // Promisify all the registered methods
@@ -35,14 +36,29 @@ const getDatas = () => new Promise(async (resolve, reject) => {
     outputLog('[ChampionGG] Init REST client : done !');
   }
 
+  // Get the patch version
+  outputLog('[ChampionGG] Retrieving the patch version ...');
+  let patchVersion;
+  try {
+    const patchVersionRequest = await client.methods.getPatchAsync({ parameters: { api_key: config.key.championgg } });
+    if (patchVersionRequest.error) {
+      throw new Error(patchVersionRequest.error);
+    }
+    patchVersion = patchVersionRequest.patch;
+  } catch (e) {
+    reject(e);
+  }
+  outputLog(`[ChampionGG] Retrieving the patch version : done ! (${patchVersion})`);
+
   // Get the champions
   outputLog('[ChampionGG] Retrieving the champions list ...');
   let champs;
   try {
-    champs = await client.methods.getChampionsAsync({ parameters: { api_key: config.key.championgg } });
-    if (champs.error) {
-      throw new Error(champs.error);
+    const patchVersionRequest = await client.methods.getChampionsAsync({ parameters: { api_key: config.key.championgg } });
+    if (patchVersionRequest.error) {
+      throw new Error(patchVersionRequest.error);
     }
+    champs = champsSets;
   } catch (e) {
     reject(e);
   }
@@ -63,10 +79,11 @@ const getDatas = () => new Promise(async (resolve, reject) => {
       if (!PROD) {
         outputLog(`[ChampionGG] Getting ${champ.key} ...`);
       }
-      champData = await client.methods.getChampionDatasAsync({ path: { name: champ.key }, parameters: { api_key: config.key.championgg } });
-      if (champData.error) {
-        throw new Error(`${champ.key} : ${champData.error}`);
+      const champDataRequest = await client.methods.getChampionDatasAsync({ path: { name: champ.key }, parameters: { api_key: config.key.championgg } });
+      if (champDataRequest.error) {
+        throw new Error(`${champ.key} : ${champDataRequest.error}`);
       }
+      champData = champDataRequest;
       for (let roleData of champData) {
         if (!PROD) {
           outputLog(`[ChampionGG] ${champ.key}/${roleData.role} : ok.`);
@@ -88,7 +105,8 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   outputLog('[ChampionGG] Retrieving the champions datas : done !');
 
   const datas = {
-    sets: champsSets
+    sets: champsSets,
+    patch: patchVersion
   };
 
   resolve(datas);

@@ -37,14 +37,14 @@ const getDatas = () => new Promise(async (resolve, reject) => {
 
   // Get the patch
   outputLog('[Riot] Retrieving patch ...');
-  let patch = 'nopatch';
+  let riotPatch = 'nopatch';
   try {
     const patches = await client.methods.getPatchAsync({ parameters: { api_key: config.key.riot } });
-    patch = patches[0];
+    riotPatch = patches[0];
   } catch (e) {
     reject(e);
   }
-  outputLog(`[Riot] Retrieving patch : done ! (${patch})`);
+  outputLog(`[Riot] Retrieving patch : done ! (${riotPatch})`);
 
   // Get the champions
   outputLog('[Riot] Retrieving champions ...');
@@ -57,7 +57,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
         id: c.id,
         key: c.key,
         name: c.name,
-        importPatch: patch,
+        importPatch: riotPatch,
         importDate: Date.now()
       };
     });
@@ -78,7 +78,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
       return {
         id: i.id,
         name: i.name,
-        importPatch: patch,
+        importPatch: riotPatch,
         importDate: Date.now()
       };
     });
@@ -90,7 +90,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   outputLog(`[Riot] Retrieving items : done !`);
 
   const datas = {
-    patch: patch,
+    patch: riotPatch,
     champions: champions,
     items: items
   };
