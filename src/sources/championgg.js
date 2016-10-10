@@ -54,11 +54,11 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   outputLog('[ChampionGG] Retrieving the champions list ...');
   let champs;
   try {
-    const patchVersionRequest = await client.methods.getChampionsAsync({ parameters: { api_key: config.key.championgg } });
-    if (patchVersionRequest.error) {
-      throw new Error(patchVersionRequest.error);
+    const champsSetsRequest = await client.methods.getChampionsAsync({ parameters: { api_key: config.key.championgg } });
+    if (champsSetsRequest.error) {
+      throw new Error(champsSetsRequest.error);
     }
-    champs = champsSets;
+    champs = champsSetsRequest;
   } catch (e) {
     reject(e);
   }
