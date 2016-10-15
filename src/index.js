@@ -14,7 +14,7 @@ app.use(leagueTips(config.key.riot, 'euw', {
   fileName: 'league-tips.min.js',
   protocol: 'https',
   cors: {
-    origin: 'https://lol-item-sets-generator.org/',
+    origin: 'https://lol-item-sets-generator.org',
     methods: 'GET',
     headers: 'Content-Type'
   }
