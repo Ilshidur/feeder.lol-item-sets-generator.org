@@ -9,7 +9,16 @@ import routes from './routes';
 
 const app = express();
 
-app.use(leagueTips(config.key.riot, 'euw', { url: '/tooltips', fileName: 'league-tips.min.js', protocol: 'https' }));
+app.use(leagueTips(config.key.riot, 'euw', {
+  url: '/tooltips',
+  fileName: 'league-tips.min.js',
+  protocol: 'https',
+  cors: {
+    origin: 'lol-item-sets-generator.org',
+    methods: 'GET',
+    headers: 'Content-Type'
+  }
+}));
 
 app.use('/sprites', routes.sprites);
 app.use('/tooltips', routes.tooltips);
