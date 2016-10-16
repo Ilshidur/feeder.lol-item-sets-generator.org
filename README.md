@@ -6,12 +6,13 @@ The https://lol-item-sets-generator.org/ sets builder.
 
 This project builds the best League of Legends recommended items for the website LoL Item Sets Generator.
 
-## What does this code generates
+## What does this code does
 
 * generates the item sets regularly with a cron task and store them in a MongoDB database
-* saves the setsto a given location
+* saves the item sets to a given location
 * imports the champions and items in a MongoDB database
 * generates the champions/items sprites and serves them with [express](https://github.com/expressjs/express)
+* provides the tooltips API to lol-item-sets-generator.org with [league-tooltips](https://www.npmjs.com/package/league-tooltips) with [express](https://github.com/expressjs/express)
 
 ## Contribute
 
@@ -53,3 +54,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+**"LoL item sets generator" isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing League of Legends.
+League of Legends and Riot Games are trademarks or registered trademarks of Riot Games, Inc. League of Legends © Riot Games, Inc.**
