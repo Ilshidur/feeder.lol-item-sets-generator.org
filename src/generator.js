@@ -51,6 +51,9 @@ const formatItemsFromId = (items) => {
 
 const run = () => new Promise(async (resolve, reject) => {
 
+  const version = require('../package.json').version;
+  console.log(`Version : ${version}.`);
+
   // == REQUESTS : Start.
 
   let datas = {};
