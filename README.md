@@ -33,7 +33,7 @@ cd $_
  * Set the required env variables as shown in the ecosystem.samle.json5
  * Start : `npm start`
 
-## Licence
+## License
 
 Copyright (c) 2016 Ilshidur
 
