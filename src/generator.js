@@ -163,7 +163,7 @@ const run = () => new Promise(async (resolve, reject) => {
     ];
     const consumeItems = [
       '2003', // Health Potion
-      '2043', // Vision Ward
+      '2055', // Control Ward
       '2031', // Refillable Potion
       '2032', // Hunter's Potion
       '2033', // Corrupting Potion
