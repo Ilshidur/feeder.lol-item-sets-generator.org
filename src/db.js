@@ -3,6 +3,7 @@ import config from './config';
 import { outputErr } from './log';
 
 function connectMongo () {
+  mongoose.Promise = global.Promise;
   mongoose.connect(config.mongo.uri, config.mongo.options);
   mongoose.connection.on('error', err => {
     outputErr(`MongoDB connection error : ${err}`);
