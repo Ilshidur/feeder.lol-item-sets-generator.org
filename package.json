@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Ilshidur/feeder.lol-item-sets-generator.org#readme",
   "dependencies": {
     "babel-polyfill": "^6.6.1",
+    "canvas": "^1.6.5",
     "cron": "^1.1.0",
     "delete": "^0.3.0",
     "express": "^4.14.0",
