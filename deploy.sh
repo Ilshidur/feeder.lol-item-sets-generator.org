@@ -18,13 +18,21 @@ then
 	echo "PM2 already installed."
 else
 	echo "Installing PM2 ..."
-	npm install pm2 -g
+	if which yarn > /dev/null; then
+		yarn global add pm2
+	else
+		npm install -g pm2
+	fi
 	echo "Installed PM2 !"
 fi
 
 ## Install dependencies
 echo "Installing dependencies ..."
-npm install
+if which yarn > /dev/null; then
+	yarn
+else
+	npm install
+fi
 echo "Installed dependencies !"
 
 ## Build
