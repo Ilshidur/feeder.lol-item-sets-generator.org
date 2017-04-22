@@ -1,8 +1,11 @@
 import Xray from 'x-ray';
+import phantom from 'x-ray-phantom';
 import { outputLog } from '../log.js';
 import config from '../config';
 
-const x = Xray();
+const x = Xray().driver(phantom({
+  webSecurity: false
+}));
 
 const PROD = config.env === 'production';
 
@@ -23,7 +26,7 @@ const getChampionBuildOrder = (champStringID) => new Promise((resolve, reject) =
       return;
     }
     const ids = result.map(i => {
-      if (i) return i.split('/')[1];
+      if (i) return i;
     });
     resolve(ids);
   });
