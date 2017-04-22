@@ -3,7 +3,7 @@
 
     {
       "name": "feeder.lol-item-sets-generator.org-app",
-      "script": "src/app.js",
+      "script": "dist/app.js",
       "env_development": {
         "NODE_ENV": "development",
         "HOST": "http://domain.tld",
@@ -22,7 +22,7 @@
     },
     {
       "name": "feeder.lol-item-sets-generator.org-worker",
-      "script": "src/worker.js",
+      "script": "dist/worker.js",
       "env_development": {
         "NODE_ENV": "development",
         "CRON_GENERATOR": "0 */2 * * *", // Every 2 hours

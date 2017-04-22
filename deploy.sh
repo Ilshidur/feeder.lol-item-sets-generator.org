@@ -35,6 +35,11 @@ else
 fi
 echo "Installed dependencies !"
 
+## Build
+echo "Building ..."
+npm run build
+echo "Building : done !"
+
 ## Run with pm2
 echo "Running PM2 ..."
 pm2 startOrRestart ecosystem.json5 --env production
