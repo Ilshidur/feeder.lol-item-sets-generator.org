@@ -38,6 +38,6 @@ jspm_packages
 
 dist
 output
-ecosystem.json*
+ecosystem.config.js
 .idea
 .vscode
