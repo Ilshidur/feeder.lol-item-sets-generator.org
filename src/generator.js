@@ -19,8 +19,7 @@ const PROD = config.env === 'production';
 const DATA_GETTERS = {
   'riot': require('./sources/riot.js').default,
   'championgg': require('./sources/championgg.js').default,
-  'probuilds': require('./sources/probuilds.js').default,
-  // Disable ProBuilds because X-ray doesn't execute JS, so the crawler is broken
+  'probuilds': require('./sources/probuilds.js').default
 };
 const getDatas = (source) => { return DATA_GETTERS[source]; };
 
