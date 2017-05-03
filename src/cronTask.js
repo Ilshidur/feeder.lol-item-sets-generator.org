@@ -1,8 +1,6 @@
 import { CronJob } from 'cron';
 import { outputErr } from './log';
 
-// CRON = '*/2 * * * *' = Every 2 minutes
-
 function cronTask (task, cron) {
 
   const runTask = async () => {
