@@ -1,7 +1,7 @@
 import { CronJob } from 'cron';
 import { outputErr } from './log';
 
-function cronTask (task, cron) {
+async function cronTask (task, cron) {
 
   const runTask = async () => {
     try {
@@ -13,7 +13,7 @@ function cronTask (task, cron) {
 
   if (!cron) {
     console.log('No CRON.');
-    runTask();
+    await runTask();
   } else {
     console.log('Starting CRON ...');
     const cronDone = () => {
