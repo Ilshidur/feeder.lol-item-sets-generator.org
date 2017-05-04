@@ -11,8 +11,8 @@ This project builds the best League of Legends recommended items for the website
 * generates the item sets regularly with a cron task and store them in a MongoDB database
 * saves the item sets to a given location
 * imports the champions and items in a MongoDB database
-* generates the champions/items sprites and serves them with [express](https://github.com/expressjs/express)
-* provides the tooltips API to lol-item-sets-generator.org with [league-tooltips](https://www.npmjs.com/package/league-tooltips) with [express](https://github.com/expressjs/express)
+* generates the champions/items sprites using [league-sprites](https://www.npmjs.com/package/league-sprites) and serves them with [express](https://github.com/expressjs/express)
+* provides the tooltips API to lol-item-sets-generator.org using [league-tooltips](https://www.npmjs.com/package/league-tooltips) and [express](https://github.com/expressjs/express)
 
 ## Contribute
 
