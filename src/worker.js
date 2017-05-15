@@ -3,6 +3,7 @@ import runTask from './cronTask';
 import generator from './cronTasks/generator';
 import { disconnectMongo } from './db';
 import queue from './kue';
+import config from './config';
 
 console.log('__ AUTOMATED GENERATION __');
 const version = require('../package.json').version;
