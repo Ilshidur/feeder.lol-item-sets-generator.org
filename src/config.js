@@ -21,6 +21,11 @@ export default {
     }
   },
 
+  redis: {
+    port: process.env.REDIS_PORT || 6379,
+    host: process.env.REDIS_HOST || 'localhost'
+  },
+
   cron: process.env.CRON_GENERATOR || false,
 
   path: {

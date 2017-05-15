@@ -1,10 +1,11 @@
 import kue from 'kue';
+import config from './config';
 
 const queue = kue.createQueue({
   prefix: 'feeder.lol-item-sets-generator.org',
   redis: {
-    port: 6379,
-    host: 'localhost',
+    port: config.redis.port,
+    host: config.redis.host,
     // auth: 'password'
   }
 });
