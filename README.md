@@ -6,7 +6,7 @@ The https://lol-item-sets-generator.org/ sets builder.
 
 This project builds the best League of Legends recommended items for the website LoL Item Sets Generator.
 
-## What does this code does
+## What this code does
 
 * generates the item sets regularly with a cron task and store them in a MongoDB database
 * saves the item sets to a given location
@@ -37,7 +37,7 @@ cd $_
 
 ## License
 
-Copyright (c) 2016 Ilshidur
+Copyright (c) 2017 **Nicolas COUTIN**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
