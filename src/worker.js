@@ -1,7 +1,7 @@
 import death from 'death';
 import runTask from './cronTask';
 import generator from './cronTasks/generator';
-import { disconnectMongo } from '../db';
+import { disconnectMongo } from './db';
 import queue from './kue';
 
 console.log('__ AUTOMATED GENERATION __');
