@@ -21,12 +21,13 @@ const cronTask = () => {
       await runGenerator();
     } catch (e) {
       done(e);
+      console.error(e);
       return;
+    } finally {
+      console.log('Disconnecting MongoDB ...');
+      disconnectMongo();
+      console.log('Disconnecting MongoDB : done !');
     }
-
-    console.log('Disconnecting MongoDB ...');
-    disconnectMongo();
-    console.log('Disconnecting MongoDB : done !');
 
     done();
   });
