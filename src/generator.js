@@ -150,10 +150,11 @@ const run = () => new Promise(async (resolve, reject) => {
   let itemSetsList = [];
 
   // Saving item sets
-  outputLog('Saving the sets ...');
+  outputLog('Generating and saving the sets ...');
   for (let champData of datas['championgg'].sets) {
+    const champion = _(datas['riot'].champions).find(champion => champion.id === champData.champId);
     if (!PROD) {
-      outputLog(`Saving ${champData.name}/${champData.role} ...`);
+      outputLog(`Generating ${champion.key}/${champData.role} ...`);
     }
     const trinketItems = [
       '3340', // Warding Totem
@@ -171,32 +172,32 @@ const run = () => new Promise(async (resolve, reject) => {
       '2140', // Elixir of Wrath
     ];
     try {
-      let skills = formatSkills(champData.skills.mostGames.order) + ` (${champData.skills.mostGames.winPercent}% win - ${champData.skills.mostGames.games} games)`;
-      if (formatSkills(champData.skills.mostGames.order) !== formatSkills(champData.skills.highestWinPercent.order)) {
-         skills += ' - ' + formatSkills(champData.skills.highestWinPercent.order) + ` (${champData.skills.highestWinPercent.winPercent}% win - ${champData.skills.highestWinPercent.games} games)`;
+      let skills = formatSkills(champData.skills.highestCount.order) + ` (${champData.skills.highestCount.winrate}% win - ${champData.skills.highestCount.games} games)`;
+      if (formatSkills(champData.skills.highestCount.order) !== formatSkills(champData.skills.highestWinrate.order)) {
+         skills += ' - ' + formatSkills(champData.skills.highestWinrate.order) + ` (${champData.skills.highestWinrate.winrate}% win - ${champData.skills.highestWinrate.games} games)`;
       }
       const fileData = {
         title: `${PATCH} ${champData.role} (LISG)`,
-        champion: champData.key,
+        champion: champion.key,
         role: champData.role,
         blocks: [{
-          items: formatItemsFromId([...champData.firstItems.mostGames.items.map(i => i.id.toString()), ...trinketItems]),
-          type: `Most frequent starters (${champData.firstItems.mostGames.winPercent}% win - ${champData.firstItems.mostGames.games} games)`
+          items: formatItemsFromId([...champData.firstItems.highestCount.items.map(i => i.toString()), ...trinketItems]),
+          type: `Most frequent starters (${champData.firstItems.highestCount.winrate}% win - ${champData.firstItems.highestCount.games} games)`
         }, {
-          items: formatItemsFromId([...champData.firstItems.highestWinPercent.items.map(i => i.id.toString()), ...trinketItems]),
-          type: `Highest win rate starters (${champData.firstItems.highestWinPercent.winPercent}% win - ${champData.firstItems.highestWinPercent.games} games)`
+          items: formatItemsFromId([...champData.firstItems.highestWinrate.items.map(i => i.toString()), ...trinketItems]),
+          type: `Highest win rate starters (${champData.firstItems.highestWinrate.winrate}% win - ${champData.firstItems.highestWinrate.games} games)`
         }, {
-          items: formatItemsFromId(champData.items.mostGames.items.map(i => i.id.toString())),
-          type: `Most frequent build (${champData.items.mostGames.winPercent}% win - ${champData.items.mostGames.games} games)`
+          items: formatItemsFromId(champData.items.highestCount.items.map(i => i.toString())),
+          type: `Most frequent build (${champData.items.highestCount.winrate}% win - ${champData.items.highestCount.games} games)`
         }, {
-          items: formatItemsFromId(champData.items.highestWinPercent.items.map(i => i.id.toString())),
-          type: `Highest win rate build (${champData.items.highestWinPercent.winPercent}% win - ${champData.items.highestWinPercent.games} games)`
+          items: formatItemsFromId(champData.items.highestWinrate.items.map(i => i.toString())),
+          type: `Highest win rate build (${champData.items.highestWinrate.winrate}% win - ${champData.items.highestWinrate.games} games)`
         }, {
-          items: formatItemsFromId([...champData.trinkets.map(t => t.item.id.toString()), ...consumeItems]),
-          type: 'Consumables | ' + _.maxBy(champData.trinkets, t => t.games).item.name + ' : ' + _.maxBy(champData.trinkets, t => t.games).winPercent + '% win - ' + _.maxBy(champData.trinkets, t => t.games).games + ' games'
+          items: formatItemsFromId([champData.trinkets.highestCount.item, ..._.without(trinketItems, champData.trinkets.highestCount.item), ...consumeItems]),
+          type: 'Consumables | ' + _.find(datas['riot'].items, item => item.id == champData.trinkets.highestCount.item).name + ' : ' + champData.trinkets.highestCount.winrate + '% win - ' + champData.trinkets.highestCount.games + ' games'
         }, {
           // TODO: Combine the items appearing twice or thrice in a row
-          items: (datas['probuilds']) ? formatItemsFromId(_.without(_.dropWhile(datas['probuilds'].builds[champData.key].build, item => item), undefined)) : formatItemsFromId(consumeItems),
+          items: (datas['probuilds']) ? formatItemsFromId(_.without(_.dropWhile(datas['probuilds'].builds[champion.key].build, item => item), undefined)) : formatItemsFromId(consumeItems),
           type: (datas['probuilds']) ? 'ProBuilds build order | ' + skills : 'ProBuilds items unavailable | ' + skills
         }]
       };
@@ -210,7 +211,7 @@ const run = () => new Promise(async (resolve, reject) => {
         champion: fileData.champion,
         blocks: fileData.blocks
       };
-      await saveFile(path.join(config.path.sets.saveFolderTmp, config.path.sets.saveFolder, champData.key, 'Recommended', `${PATCH} ${champData.role}.json`), JSON.stringify(fileContent, null, '  '));
+      await saveFile(path.join(config.path.sets.saveFolderTmp, config.path.sets.saveFolder, champion.key, 'Recommended', `${PATCH} ${champData.role}.json`), JSON.stringify(fileContent, null, '  '));
       itemSetsList.push({
         title: fileData.title,
         champion: fileData.champion,
@@ -224,9 +225,12 @@ const run = () => new Promise(async (resolve, reject) => {
       return;
     }
     if (!PROD) {
-      outputLog(`Saving ${champData.name}/${champData.role} : done !`);
+      outputLog(`Generating ${champion.key}/${champData.role} : done !`);
     }
   }
+  outputLog('Generating and saving the sets : done !');
+
+  itemSetsList = _.sortBy(itemSetsList, itemSet => itemSet.champion);
 
   if (!PROD) {
     outputLog(`Saving the sets in the database ...`);

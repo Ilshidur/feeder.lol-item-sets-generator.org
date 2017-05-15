@@ -1,12 +1,42 @@
 import _ from 'lodash';
-import { Client } from 'node-rest-client';
-import { promisifyNodeClient, link } from '../utils';
+import GG from '@solomid/node-gg';
 import { outputLog } from '../log.js';
 import config from '../config';
 
-const API_CHAMPIONGG = 'api.champion.gg';
-
 const PROD = config.env === 'production';
+
+function getPatch(apiKey) {
+  const gg = GG.init(apiKey);
+
+  return new Promise((resolve, reject) => {
+    gg.statistics.general({
+      // elo: 'PLATINUM,DIAMOND,MASTER,CHALLENGER'
+    }, function(err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data[0].patch);
+      }
+    });
+  });
+}
+
+function getChampionsRolesList(apiKey) {
+  const gg = GG.init(apiKey);
+
+  return new Promise((resolve, reject) => {
+    gg.champions.all({
+      // elo: 'PLATINUM,DIAMOND,MASTER,CHALLENGER'
+      champData: 'hashes'
+    }, function(err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+}
 
 const getDatas = () => new Promise(async (resolve, reject) => {
 
@@ -15,94 +45,80 @@ const getDatas = () => new Promise(async (resolve, reject) => {
     throw new Error('No championgg key defined.');
   }
 
-  if (!PROD) {
-    outputLog('[ChampionGG] Init REST client ...');
-  }
-  // Init client and GET methods
-  const client = new Client();
-  client.on('error', (err) => {
-    reject(err);
-  });
-  try {
-    client.registerMethod('getPatch', link('http', API_CHAMPIONGG, '/stats/overall'), 'GET');
-    client.registerMethod('getChampions', link('http', API_CHAMPIONGG, '/champion'), 'GET');
-    client.registerMethod('getChampionDatas', link('http', API_CHAMPIONGG, '/champion/${name}'), 'GET');
-    // Promisify all the registered methods
-    promisifyNodeClient(client);
-  } catch (e) {
-    reject(e);
-  }
-  if (!PROD) {
-    outputLog('[ChampionGG] Init REST client : done !');
-  }
-
   // Get the patch version
   outputLog('[ChampionGG] Retrieving the patch version ...');
-  let patchVersion;
-  try {
-    const patchVersionRequest = await client.methods.getPatchAsync({ parameters: { api_key: config.key.championgg } });
-    if (patchVersionRequest.error) {
-      throw new Error(patchVersionRequest.error);
-    }
-    patchVersion = patchVersionRequest.patch;
-  } catch (e) {
-    reject(e);
-  }
+  const patchVersion = await getPatch(config.key.championgg);
   outputLog(`[ChampionGG] Retrieving the patch version : done ! (${patchVersion})`);
 
   // Get the champions
-  outputLog('[ChampionGG] Retrieving the champions list ...');
-  let champs;
-  try {
-    const champsSetsRequest = await client.methods.getChampionsAsync({ parameters: { api_key: config.key.championgg } });
-    if (champsSetsRequest.error) {
-      throw new Error(champsSetsRequest.error);
-    }
-    champs = champsSetsRequest;
-  } catch (e) {
-    reject(e);
-  }
-  outputLog('[ChampionGG] Retrieving the champions list : done !');
-
-  champs = _.sortBy(champs, c => c.key);
+  outputLog('[ChampionGG] Retrieving the champions roles and item sets ...');
+  let champRoles = await getChampionsRolesList(config.key.championgg);
+  outputLog('[ChampionGG] Retrieving the champions roles and item sets : done !');
 
   if (config.env === 'test') {
-    champs = [champs[0]];
+    champRoles = [champRoles[0]];
   }
 
-  // Get the champions data
-  outputLog('[ChampionGG] Retrieving the champions datas ...');
+  // Extract the item sets
   let champsSets = [];
-  for (let champ of champs) {
+  for (let champRole of champRoles) {
     let champData;
-    try {
-      if (!PROD) {
-        outputLog(`[ChampionGG] Getting ${champ.key} ...`);
-      }
-      const champDataRequest = await client.methods.getChampionDatasAsync({ path: { name: champ.key }, parameters: { api_key: config.key.championgg } });
-      if (champDataRequest.error) {
-        throw new Error(`${champ.key} : ${champDataRequest.error}`);
-      }
-      champData = champDataRequest;
-      for (let roleData of champData) {
-        if (!PROD) {
-          outputLog(`[ChampionGG] ${champ.key}/${roleData.role} : ok.`);
+
+    // TODO: Use champRole.hashes.evolveskillorder
+
+    champsSets.push({
+      champId: champRole.championId,
+      role: champRole.role,
+      items: {
+        highestCount: {
+          items: _(champRole.hashes.finalitemshashfixed.highestCount.hash).split('-').tail().value(),
+          winrate: _.round(champRole.hashes.finalitemshashfixed.highestCount.winrate * 100, 0),
+          games: champRole.hashes.finalitemshashfixed.highestCount.count
+        },
+        highestWinrate: {
+          items: _(champRole.hashes.finalitemshashfixed.highestWinrate.hash).split('-').tail().value(),
+          winrate: _.round(champRole.hashes.finalitemshashfixed.highestWinrate.winrate * 100),
+          games: champRole.hashes.finalitemshashfixed.highestWinrate.count
         }
-        champsSets.push({
-          key: champ.key,
-          role: roleData.role,
-          name: champ.name,
-          items: roleData.items,
-          firstItems: roleData.firstItems,
-          skills: roleData.skills,
-          trinkets: roleData.trinkets,
-        });
+      },
+      firstItems: {
+        highestCount: {
+          items: _(champRole.hashes.firstitemshash.highestCount.hash).split('-').tail().value(),
+          winrate: _.round(champRole.hashes.firstitemshash.highestCount.winrate * 100),
+          games: champRole.hashes.firstitemshash.highestCount.count
+        },
+        highestWinrate: {
+          items: _(champRole.hashes.firstitemshash.highestWinrate.hash).split('-').tail().value(),
+          winrate: _.round(champRole.hashes.firstitemshash.highestWinrate.winrate * 100),
+          games: champRole.hashes.firstitemshash.highestWinrate.count
+        }
+      },
+      skills: {
+        highestCount: {
+          order: _(champRole.hashes.skillorderhash.highestCount.hash).split('-').tail().value(),
+          winrate: _.round(champRole.hashes.skillorderhash.highestCount.winrate * 100),
+          games: champRole.hashes.skillorderhash.highestCount.count
+        },
+        highestWinrate: {
+          order: _(champRole.hashes.skillorderhash.highestWinrate.hash).split('-').tail().value(),
+          winrate: _.round(champRole.hashes.skillorderhash.highestWinrate.winrate * 100),
+          games: champRole.hashes.skillorderhash.highestWinrate.count
+        }
+      },
+      trinkets: {
+        highestCount: {
+          item: _(champRole.hashes.trinkethash.highestCount.hash).split('-').value()[0],
+          winrate: _.round(champRole.hashes.trinkethash.highestCount.winrate * 100),
+          games: champRole.hashes.trinkethash.highestCount.count
+        },
+        highestWinrate: {
+          item: _(champRole.hashes.trinkethash.highestWinrate.hash).split('-').value()[0],
+          winrate: _.round(champRole.hashes.trinkethash.highestWinrate.winrate * 100),
+          games: champRole.hashes.trinkethash.highestWinrate.count
+        }
       }
-    } catch (e) {
-      reject(e);
-    }
+    });
   }
-  outputLog('[ChampionGG] Retrieving the champions datas : done !');
 
   const datas = {
     sets: champsSets,

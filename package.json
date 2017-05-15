@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Ilshidur/feeder.lol-item-sets-generator.org#readme",
   "dependencies": {
+    "@solomid/node-gg": "^3.0.1",
     "babel-polyfill": "^6.6.1",
     "canvas": "^1.6.5",
     "cron": "^1.1.0",
