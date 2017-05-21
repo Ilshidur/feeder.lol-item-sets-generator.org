@@ -188,20 +188,20 @@ const run = () => new Promise(async (resolve, reject) => {
         champion: champData.champion.key,
         role: champData.role,
         blocks: [{
-          items: formatItemsFromId([...champData.firstItems.highestCount.items.map(i => i.toString()), ...trinketItems]),
-          type: `Most frequent starters (${champData.firstItems.highestCount.winrate}% win - ${champData.firstItems.highestCount.games} games)`
+          items: champData.firstItems ? formatItemsFromId([...champData.firstItems.highestCount.items.map(i => i.toString()), ...trinketItems]) : formatItemsFromId(trinketItems),
+          type: champData.firstItems ? `Most frequent starters (${champData.firstItems.highestCount.winrate}% win - ${champData.firstItems.highestCount.games} games)` : 'Most frequent starters not found'
         }, {
-          items: formatItemsFromId([...champData.firstItems.highestWinrate.items.map(i => i.toString()), ...trinketItems]),
-          type: `Highest win rate starters (${champData.firstItems.highestWinrate.winrate}% win - ${champData.firstItems.highestWinrate.games} games)`
+          items: champData.firstItems ? formatItemsFromId([...champData.firstItems.highestWinrate.items.map(i => i.toString()), ...trinketItems]) : formatItemsFromId(trinketItems),
+          type: champData.firstItems ? `Highest win rate starters (${champData.firstItems.highestWinrate.winrate}% win - ${champData.firstItems.highestWinrate.games} games)` : 'Highest win rate starters not found'
         }, {
-          items: formatItemsFromId(champData.items.highestCount.items.map(i => i.toString())),
-          type: `Most frequent build (${champData.items.highestCount.winrate}% win - ${champData.items.highestCount.games} games)`
+          items: champData.items ? formatItemsFromId(champData.items.highestCount.items.map(i => i.toString())) : formatItemsFromId(trinketItems),
+          type: champData.items ? `Most frequent build (${champData.items.highestCount.winrate}% win - ${champData.items.highestCount.games} games)` : 'Most frequent build not found'
         }, {
-          items: formatItemsFromId(champData.items.highestWinrate.items.map(i => i.toString())),
-          type: `Highest win rate build (${champData.items.highestWinrate.winrate}% win - ${champData.items.highestWinrate.games} games)`
+          items: champData.items ? formatItemsFromId(champData.items.highestWinrate.items.map(i => i.toString())) : formatItemsFromId(trinketItems),
+          type: champData.items ? `Highest win rate build (${champData.items.highestWinrate.winrate}% win - ${champData.items.highestWinrate.games} games)` : 'Highest win rate build not found'
         }, {
-          items: formatItemsFromId([champData.trinkets.highestCount.item, ..._.without(trinketItems, champData.trinkets.highestCount.item), ...consumeItems]),
-          type: 'Consumables | ' + _.find(datas['riot'].items, item => item.id == champData.trinkets.highestCount.item).name + ' : ' + champData.trinkets.highestCount.winrate + '% win - ' + champData.trinkets.highestCount.games + ' games'
+          items: champData.trinkets ? formatItemsFromId([champData.trinkets.highestCount.item, ..._.without(trinketItems, champData.trinkets.highestCount.item), ...consumeItems]) : formatItemsFromId(consumeItems),
+          type: champData.trinkets ? 'Consumables | ' + _.find(datas['riot'].items, item => item.id == champData.trinkets.highestCount.item).name + ' : ' + champData.trinkets.highestCount.winrate + '% win - ' + champData.trinkets.highestCount.games + ' games' : 'Trinkets not found'
         }, {
           // TODO: Combine the items appearing twice or thrice in a row
           items: (datas['probuilds']) ? formatItemsFromId(_.without(_.dropWhile(datas['probuilds'].builds[champData.champion.key].build, item => item), undefined)) : formatItemsFromId(consumeItems),

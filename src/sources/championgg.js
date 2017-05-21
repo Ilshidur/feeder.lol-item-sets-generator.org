@@ -84,58 +84,65 @@ const getDatas = () => new Promise(async (resolve, reject) => {
       champsSets.push({
         champId: champRole.championId,
         role: rolesMapping[champRole.role],
-        items: {
-          highestCount: {
-            items: _(champRole.hashes.finalitemshashfixed.highestCount.hash).split('-').tail().value(),
-            winrate: _.round(champRole.hashes.finalitemshashfixed.highestCount.winrate * 100, 0),
-            games: champRole.hashes.finalitemshashfixed.highestCount.count
-          },
-          highestWinrate: {
-            items: _(champRole.hashes.finalitemshashfixed.highestWinrate.hash).split('-').tail().value(),
-            winrate: _.round(champRole.hashes.finalitemshashfixed.highestWinrate.winrate * 100),
-            games: champRole.hashes.finalitemshashfixed.highestWinrate.count
+        ...champRole.hashes.finalitemshashfixed && {
+          items: {
+            highestCount: {
+              items: _(champRole.hashes.finalitemshashfixed.highestCount.hash).split('-').tail().value(),
+              winrate: _.round(champRole.hashes.finalitemshashfixed.highestCount.winrate * 100, 0),
+              games: champRole.hashes.finalitemshashfixed.highestCount.count
+            },
+            highestWinrate: {
+              items: _(champRole.hashes.finalitemshashfixed.highestWinrate.hash).split('-').tail().value(),
+              winrate: _.round(champRole.hashes.finalitemshashfixed.highestWinrate.winrate * 100),
+              games: champRole.hashes.finalitemshashfixed.highestWinrate.count
+            }
           }
         },
-        firstItems: {
-          highestCount: {
-            items: _(champRole.hashes.firstitemshash.highestCount.hash).split('-').tail().value(),
-            winrate: _.round(champRole.hashes.firstitemshash.highestCount.winrate * 100),
-            games: champRole.hashes.firstitemshash.highestCount.count
-          },
-          highestWinrate: {
-            items: _(champRole.hashes.firstitemshash.highestWinrate.hash).split('-').tail().value(),
-            winrate: _.round(champRole.hashes.firstitemshash.highestWinrate.winrate * 100),
-            games: champRole.hashes.firstitemshash.highestWinrate.count
+        ...champRole.hashes.firstitemshash && {
+          firstItems: {
+            highestCount: {
+              items: _(champRole.hashes.firstitemshash.highestCount.hash).split('-').tail().value(),
+              winrate: _.round(champRole.hashes.firstitemshash.highestCount.winrate * 100),
+              games: champRole.hashes.firstitemshash.highestCount.count
+            },
+            highestWinrate: {
+              items: _(champRole.hashes.firstitemshash.highestWinrate.hash).split('-').tail().value(),
+              winrate: _.round(champRole.hashes.firstitemshash.highestWinrate.winrate * 100),
+              games: champRole.hashes.firstitemshash.highestWinrate.count
+            }
           }
         },
-        skills: {
-          highestCount: {
-            order: _(champRole.hashes.skillorderhash.highestCount.hash).split('-').tail().value(),
-            winrate: _.round(champRole.hashes.skillorderhash.highestCount.winrate * 100),
-            games: champRole.hashes.skillorderhash.highestCount.count
-          },
-          highestWinrate: {
-            order: _(champRole.hashes.skillorderhash.highestWinrate.hash).split('-').tail().value(),
-            winrate: _.round(champRole.hashes.skillorderhash.highestWinrate.winrate * 100),
-            games: champRole.hashes.skillorderhash.highestWinrate.count
+        ...champRole.hashes.skillorderhash && {
+          skills: {
+            highestCount: {
+              order: _(champRole.hashes.skillorderhash.highestCount.hash).split('-').tail().value(),
+              winrate: _.round(champRole.hashes.skillorderhash.highestCount.winrate * 100),
+              games: champRole.hashes.skillorderhash.highestCount.count
+            },
+            highestWinrate: {
+              order: _(champRole.hashes.skillorderhash.highestWinrate.hash).split('-').tail().value(),
+              winrate: _.round(champRole.hashes.skillorderhash.highestWinrate.winrate * 100),
+              games: champRole.hashes.skillorderhash.highestWinrate.count
+            }
           }
         },
-        trinkets: {
-          highestCount: {
-            item: _(champRole.hashes.trinkethash.highestCount.hash).split('-').value()[0],
-            winrate: _.round(champRole.hashes.trinkethash.highestCount.winrate * 100),
-            games: champRole.hashes.trinkethash.highestCount.count
-          },
-          highestWinrate: {
-            item: _(champRole.hashes.trinkethash.highestWinrate.hash).split('-').value()[0],
-            winrate: _.round(champRole.hashes.trinkethash.highestWinrate.winrate * 100),
-            games: champRole.hashes.trinkethash.highestWinrate.count
+        ...champRole.hashes.trinkethash && {
+          trinkets: {
+            highestCount: {
+              item: _(champRole.hashes.trinkethash.highestCount.hash).split('-').value()[0],
+              winrate: _.round(champRole.hashes.trinkethash.highestCount.winrate * 100),
+              games: champRole.hashes.trinkethash.highestCount.count
+            },
+            highestWinrate: {
+              item: _(champRole.hashes.trinkethash.highestWinrate.hash).split('-').value()[0],
+              winrate: _.round(champRole.hashes.trinkethash.highestWinrate.winrate * 100),
+              games: champRole.hashes.trinkethash.highestWinrate.count
+            }
           }
         }
       });
     } catch (e) {
-      console.log(champRole);
-      console.error(e);
+      reject(e);
     }
   }
 
