@@ -13,13 +13,14 @@ console.log(`Running worker version : ${version}.`);
 
 const onDeath = death({ uncaughtException: true });
 onDeath(function(signal, err) {
-  console.log('Shutting down Mongoose ...');
+  console.log('Shutting down MongoDB connection ...');
   disconnectMongo();
   console.log('Shuting down Kue ...');
   queue.shutdown(5000, function(err) {
     if (err) {
       console.log('Kue shutdown error : ', err);
     }
+    console.log('Exiting ...');
     process.exit(0);
   });
 });

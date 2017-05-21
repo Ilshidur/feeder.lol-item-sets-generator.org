@@ -149,12 +149,19 @@ const run = () => new Promise(async (resolve, reject) => {
   // Temp list of SetSchema (./models/item_sets.js)
   let itemSetsList = [];
 
+  const sets = datas['championgg'].sets.map((champData) => {
+    const champion = _(datas['riot'].champions).find(champion => champion.id === champData.champId);
+    champData.champion = champion;
+    return champData;
+  });
+
+  const sortedSets = _.sortBy(sets, 'champion.key');
+
   // Saving item sets
   outputLog('Generating and saving the sets ...');
-  for (let champData of datas['championgg'].sets) {
-    const champion = _(datas['riot'].champions).find(champion => champion.id === champData.champId);
+  for (let champData of sortedSets) {
     if (!PROD) {
-      outputLog(`Generating ${champion.key}/${champData.role} ...`);
+      outputLog(`Generating ${champData.champion.key}/${champData.role} ...`);
     }
     const trinketItems = [
       '3340', // Warding Totem
@@ -178,7 +185,7 @@ const run = () => new Promise(async (resolve, reject) => {
       }
       const fileData = {
         title: `${PATCH} ${champData.role} (LISG)`,
-        champion: champion.key,
+        champion: champData.champion.key,
         role: champData.role,
         blocks: [{
           items: formatItemsFromId([...champData.firstItems.highestCount.items.map(i => i.toString()), ...trinketItems]),
@@ -197,7 +204,7 @@ const run = () => new Promise(async (resolve, reject) => {
           type: 'Consumables | ' + _.find(datas['riot'].items, item => item.id == champData.trinkets.highestCount.item).name + ' : ' + champData.trinkets.highestCount.winrate + '% win - ' + champData.trinkets.highestCount.games + ' games'
         }, {
           // TODO: Combine the items appearing twice or thrice in a row
-          items: (datas['probuilds']) ? formatItemsFromId(_.without(_.dropWhile(datas['probuilds'].builds[champion.key].build, item => item), undefined)) : formatItemsFromId(consumeItems),
+          items: (datas['probuilds']) ? formatItemsFromId(_.without(_.dropWhile(datas['probuilds'].builds[champData.champion.key].build, item => item), undefined)) : formatItemsFromId(consumeItems),
           type: (datas['probuilds']) ? 'ProBuilds build order | ' + skills : 'ProBuilds items unavailable | ' + skills
         }]
       };
@@ -211,7 +218,7 @@ const run = () => new Promise(async (resolve, reject) => {
         champion: fileData.champion,
         blocks: fileData.blocks
       };
-      await saveFile(path.join(config.path.sets.saveFolderTmp, config.path.sets.saveFolder, champion.key, 'Recommended', `${PATCH} ${champData.role}.json`), JSON.stringify(fileContent, null, '  '));
+      await saveFile(path.join(config.path.sets.saveFolderTmp, config.path.sets.saveFolder, champData.champion.key, 'Recommended', `${PATCH} ${champData.role}.json`), JSON.stringify(fileContent, null, '  '));
       itemSetsList.push({
         title: fileData.title,
         champion: fileData.champion,
@@ -225,10 +232,10 @@ const run = () => new Promise(async (resolve, reject) => {
       return;
     }
     if (!PROD) {
-      outputLog(`Generating ${champion.key}/${champData.role} : done !`);
+      outputLog(`Generating ${champData.champion.key}/${champData.role} : done !`);
     }
   }
-  outputLog('Generating and saving the sets : done !');
+  outputLog(`Generating and saving the sets : done ! (total: ${sortedSets.length})`);
 
   itemSetsList = _.sortBy(itemSetsList, itemSet => itemSet.champion);
 
