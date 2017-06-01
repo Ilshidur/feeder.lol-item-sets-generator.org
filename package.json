@@ -8,7 +8,9 @@
     "start": "node dist/app.js",
     "worker": "node dist/worker.js",
     "generator": "node dist/scripts/generate.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -42,7 +44,8 @@
     "semver-compare": "^1.0.0",
     "x-ray": "^2.3.0",
     "x-ray-phantom": "^1.0.1",
-    "zip-folder": "^1.0.0"
+    "zip-folder": "^1.0.0",
+    "snyk": "^1.32.0"
   },
   "devDependencies": {
     "babel": "^6.5.2",
@@ -59,5 +62,6 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "run-sequence": "^1.1.5"
-  }
+  },
+  "snyk": true
 }
