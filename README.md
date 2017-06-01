@@ -1,5 +1,7 @@
 # [feeder.lol-item-sets-generator.org](https://feeder.lol-item-sets-generator.org)
 
+> The https://lol-item-sets-generator.org/ sets builder.
+
 [![Slack Status](https://slack.lol-item-sets-generator.org/badge.svg)](https://slack.lol-item-sets-generator.org/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/LoL_item_sets.svg?style=social&label=Follow)](https://twitter.com/Unreal_IRCd)
 
@@ -8,8 +10,6 @@
 [![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-url]
 [![dependency status][dependency-badge]][dependency-url]
 [![devdependency status][devdependency-badge]][devdependency-url]
-
-The https://lol-item-sets-generator.org/ sets builder.
 
 This project builds the best League of Legends recommended items for the website LoL Item Sets Generator.
 
