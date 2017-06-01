@@ -3,6 +3,12 @@
 [![Slack Status](https://slack.lol-item-sets-generator.org/badge.svg)](https://slack.lol-item-sets-generator.org/)
 [![Twitter Follow](https://img.shields.io/twitter/follow/LoL_item_sets.svg?style=social&label=Follow)](https://twitter.com/Unreal_IRCd)
 
+![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
+
+[![Known Vulnerabilities][vulnerabilities-badge]][vulnerabilities-url]
+[![dependency status][dependency-badge]][dependency-url]
+[![devdependency status][devdependency-badge]][devdependency-url]
+
 The https://lol-item-sets-generator.org/ sets builder.
 
 This project builds the best League of Legends recommended items for the website LoL Item Sets Generator.
@@ -64,3 +70,10 @@ League of Legends and Riot Games are trademarks or registered trademarks of Riot
 ## Contact
 
 Contact me at [ilshidur@lol-item-sets-generator.org](mailto:ilshidur@lol-item-sets-generator.org) or [ilshidur@gmail.com](mailto:ilshidur@gmail.com).
+
+[vulnerabilities-badge]: https://snyk.io/test/github/league-of-legends-devs/feeder.lol-item-sets-generator.org/badge.svg
+[vulnerabilities-url]: https://snyk.io/test/github/league-of-legends-devs/feeder.lol-item-sets-generator.org
+[dependency-badge]: https://david-dm.org/league-of-legends-devs/feeder.lol-item-sets-generator.org.svg
+[dependency-url]: https://david-dm.org/league-of-legends-devs/feeder.lol-item-sets-generator.org
+[devdependency-badge]: https://david-dm.org/league-of-legends-devs/feeder.lol-item-sets-generator.org/dev-status.svg
+[devdependency-url]: https://david-dm.org/league-of-legends-devs/feeder.lol-item-sets-generator.org#info=devDependencies
