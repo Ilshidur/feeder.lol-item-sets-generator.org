@@ -3,7 +3,7 @@
 > The https://lol-item-sets-generator.org/ sets builder.
 
 [![Slack Status](https://slack.lol-item-sets-generator.org/badge.svg)](https://slack.lol-item-sets-generator.org/)
-[![Twitter Follow](https://img.shields.io/twitter/follow/LoL_item_sets.svg?style=social&label=Follow)](https://twitter.com/Unreal_IRCd)
+[![Twitter Follow](https://img.shields.io/twitter/follow/LoL_item_sets.svg?style=social&label=Follow)](https://twitter.com/LoL_item_sets)
 
 ![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)
 
