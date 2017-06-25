@@ -5,8 +5,6 @@ import config from '../config';
 const router = express.Router();
 
 router.use(leagueTips(config.key.riot, 'euw', {
-  base: '/tooltips',
-  url: '/',
   fileName: 'league-tips.min.js',
   protocol: 'https',
   cors: {
