@@ -3622,9 +3622,9 @@ league-sprites@^0.4.1:
     node-sprite-generator "^0.10.2"
     snyk "^1.34.3"
 
-league-tooltips@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/league-tooltips/-/league-tooltips-1.6.1.tgz#2348e68031130557f675955cfc4b516a1263386c"
+league-tooltips@^1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/league-tooltips/-/league-tooltips-1.6.3.tgz#345b7aa8cf52d3bb6ed1ae1cbfedbe0a033fc3aa"
   dependencies:
     babel-polyfill "6.23.0"
     debug "2.6.8"
