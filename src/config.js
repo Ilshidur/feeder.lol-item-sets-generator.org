@@ -1,15 +1,6 @@
 import path from 'path';
 import url from 'url';
 
-if (!process.env.KEY_RIOT) {
-  console.log('No riot key defined.');
-  throw new Error('No riot key defined.');
-}
-if (!process.env.KEY_CHAMPIONGG) {
-  console.log('No championgg key defined.');
-  throw new Error('No championgg key defined.');
-}
-
 const LOCALHOST = 'localhost' + (process.env.PORT ? ':' + process.env.PORT : '');
 const HOST = process.env.HOST || LOCALHOST;
 

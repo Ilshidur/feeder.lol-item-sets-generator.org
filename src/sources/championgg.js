@@ -6,6 +6,11 @@ import config from '../config';
 
 const PROD = config.env === 'production';
 
+if (!process.env.KEY_CHAMPIONGG) {
+  console.log('No championgg key defined.');
+  throw new Error('No championgg key defined.');
+}
+
 function getPatch(apiKey) {
   const gg = GG.init(apiKey);
 

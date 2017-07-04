@@ -5,6 +5,11 @@ import config from '../config';
 
 const PROD = config.env === 'production';
 
+if (!process.env.KEY_RIOT) {
+  console.log('No riot key defined.');
+  throw new Error('No riot key defined.');
+}
+
 const getDatas = () => new Promise(async (resolve, reject) => {
 
   // Get the patch
