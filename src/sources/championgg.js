@@ -43,11 +43,6 @@ function getChampionsRolesList(apiKey) {
 
 const getDatas = () => new Promise(async (resolve, reject) => {
 
-  if (!config.key.championgg) {
-    console.log('No championgg key defined.');
-    throw new Error('No championgg key defined.');
-  }
-
   // Get the patch version
   outputLog('[ChampionGG] Retrieving the patch version ...');
   const patchVersion = await getPatch(config.key.championgg);

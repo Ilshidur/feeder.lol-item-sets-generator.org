@@ -4,20 +4,6 @@ import del from 'delete';
 import path from 'path';
 import config from './config';
 
-const promisifyNodeClient = c => {
-  Object.keys(c.methods).forEach(method => {
-    c.methods[method + 'Async'] = (...args) => new Promise((resolve, reject) => {
-      c.methods[method](...args, (data, response) => {
-        resolve(data);
-      });
-    });
-  });
-};
-
-const link = (protocol, api, route) => {
-  return protocol + '://' + path.join(api, route);
-};
-
 const saveFile = (file, content) => new Promise((resolve, reject) => {
   const outputFolder = path.join(config.rootPath, config.path.sets.outputFolder);
   fs.outputFile(path.join(outputFolder, file), content, (err) => {
@@ -41,4 +27,4 @@ const zipItems = async () => new Promise((resolve, reject) => {
   });
 });
 
-export { promisifyNodeClient, link, saveFile, zipItems };
+export { saveFile, zipItems };
