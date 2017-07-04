@@ -3,9 +3,8 @@ import 'babel-polyfill';
 import _ from 'lodash';
 import path from 'path';
 import del from 'delete';
-import { Client } from 'node-rest-client';
 import { Generator as SpriteGenerator } from 'league-sprites';
-import { promisifyNodeClient, saveFile, zipItems } from './utils';
+import { saveFile, zipItems } from './utils';
 import { outputLog } from './log';
 import { findAndUpdateMongoDocument, saveMongoDocument } from './db';
 import ItemSetDocument from './models/item_set';
@@ -258,49 +257,51 @@ const run = () => new Promise(async (resolve, reject) => {
   await zipItems();
   outputLog('Zipping the sets : done !');
 
-  outputLog('Generating the sprites ...');
+  if (config.generateSprites) {
+    outputLog('Generating the sprites ...');
 
-  const sprites = ['champions', 'items'];
+    const sprites = ['champions', 'items'];
 
-  for (const spriteType of sprites) {
-    let dataType = '';
-    switch (spriteType) {
-      case 'champions':
-        dataType = 'ChampionIcon';
-        break;
-      case 'items':
-        dataType = 'ItemIcon';
-        break;
-      default:
+    for (const spriteType of sprites) {
+      let dataType = '';
+      switch (spriteType) {
+        case 'champions':
+          dataType = 'ChampionIcon';
+          break;
+        case 'items':
+          dataType = 'ItemIcon';
+          break;
+        default:
+          reject(e);
+          return;
+      }
+      const generatorOpts = {
+        dataType: dataType,
+        apiKey: config.key.riot,
+        region: 'euw',
+        patch: PATCH,
+        stylesheetFormat: 'css',
+        stylesheetLayout: 'horizontal',
+        downloadFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.downloadFolder),
+        spritePath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolderTmp, config.path.sprites.spritesheetName[spriteType]),
+        spriteLink: config.path.sprites.spritesheetLink[spriteType],
+        stylesheetPath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName[spriteType]),
+        finalSpritesheetFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder)
+      };
+
+      try {
+        outputLog(`Generating the ${dataType} sprites ...`);
+        const spritesGenerator = new SpriteGenerator(generatorOpts);
+        await spritesGenerator.generate();
+        outputLog(`Generating the ${dataType} sprites : done !`);
+      } catch (e) {
         reject(e);
         return;
+      }
     }
-    const generatorOpts = {
-      dataType: dataType,
-      apiKey: config.key.riot,
-      region: 'euw',
-      patch: PATCH,
-      stylesheetFormat: 'css',
-      stylesheetLayout: 'horizontal',
-      downloadFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.downloadFolder),
-      spritePath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolderTmp, config.path.sprites.spritesheetName[spriteType]),
-      spriteLink: config.path.sprites.spritesheetLink[spriteType],
-      stylesheetPath: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder, config.path.sprites.stylesheetName[spriteType]),
-      finalSpritesheetFolder: path.join(config.path.sprites.outputFolder, config.path.sprites.spritesheetFolder)
-    };
 
-    try {
-      outputLog(`Generating the ${dataType} sprites ...`);
-      const spritesGenerator = new SpriteGenerator(generatorOpts);
-      await spritesGenerator.generate();
-      outputLog(`Generating the ${dataType} sprites : done !`);
-    } catch (e) {
-      reject(e);
-      return;
-    }
+    outputLog('Generation : done !');
   }
-
-  outputLog('Generation : done !');
 
   resolve();
 });

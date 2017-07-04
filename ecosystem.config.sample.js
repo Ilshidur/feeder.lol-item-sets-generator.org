@@ -30,7 +30,8 @@ module.exports = {
         REDIS_PORT: 6379,
         REDIS_HOST: 'localhost',
         KEY_CHAMPIONGG: 'API_KEY',
-        KEY_RIOT: 'API_KEY'
+        KEY_RIOT: 'API_KEY',
+        GENERATE_SPRITES: true
       },
       env_development: {
         NODE_ENV: 'development',
