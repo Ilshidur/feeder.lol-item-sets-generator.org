@@ -1338,10 +1338,6 @@ clone-stats@^0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/clone-stats/-/clone-stats-0.0.1.tgz#b88f94a82cf38b8791d58046ea4029ad88ca99d1"
 
-clone@2.x:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.1.tgz#d217d1e961118e3ac9a4b8bba3285553bf647cdb"
-
 clone@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/clone/-/clone-0.2.0.tgz#c6126a90ad4f72dbf5acdb243cc37724fe93fc1f"
@@ -3714,15 +3710,15 @@ league-sprites@^0.4.1:
     node-sprite-generator "^0.10.2"
     snyk "^1.34.3"
 
-league-tooltips@^1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/league-tooltips/-/league-tooltips-1.6.3.tgz#345b7aa8cf52d3bb6ed1ae1cbfedbe0a033fc3aa"
+league-tooltips@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/league-tooltips/-/league-tooltips-2.0.0.tgz#de1ff3070c4467ddbfc429529acd04cac8e3f9a0"
   dependencies:
     babel-polyfill "6.23.0"
     debug "2.6.8"
     express "4.15.3"
+    kindred-api "^2.0.67"
     lodash "4.17.4"
-    node-cache "4.1.1"
     node-rest-client "3.1.0"
     whatwg-fetch "2.0.3"
 
@@ -3896,7 +3892,7 @@ lodash.templatesettings@^3.0.0:
     lodash._reinterpolate "^3.0.0"
     lodash.escape "^3.0.0"
 
-lodash@4.17.4, lodash@4.x, lodash@^4.0.0, lodash@^4.1.0, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
+lodash@4.17.4, lodash@^4.0.0, lodash@^4.1.0, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.3.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -4248,13 +4244,6 @@ nightmare@^1.7.0:
     jsesc "^0.5.0"
     once "1.3.0"
     phantom "^0.7.0"
-
-node-cache@4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/node-cache/-/node-cache-4.1.1.tgz#08524645ee4039dedc3dcc1dd7c6b979e0619e44"
-  dependencies:
-    clone "2.x"
-    lodash "4.x"
 
 node-pre-gyp@^0.6.29:
   version "0.6.36"

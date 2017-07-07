@@ -4,13 +4,20 @@ import config from '../config';
 
 const router = express.Router();
 
-router.use(leagueTips(config.key.riot, 'euw', {
+router.use(leagueTips(config.key.riot, leagueTips.REGIONS.EUROPE_WEST, {
   fileName: 'league-tips.min.js',
-  protocol: 'https',
   cors: {
     origin: 'https://lol-item-sets-generator.org',
     methods: 'GET',
     headers: 'Content-Type'
+  },
+  cache: {
+    TTL: 60 * 60 * 48, // 48 hours
+    redis: {
+      host: 'localhost',
+      port: 6379,
+      prefix: 'league-tooltips-demo_'
+    }
   }
 }));
 
