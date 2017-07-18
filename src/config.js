@@ -23,7 +23,8 @@ export default {
 
   redis: {
     port: process.env.REDIS_PORT || 6379,
-    host: process.env.REDIS_HOST || 'localhost'
+    host: process.env.REDIS_HOST || 'localhost',
+    tooltipsPrefix: process.env.REDIS_TOOLTIPS_PREFIX || 'feeder.lol-item-sets-generator.org-tooltips_'
   },
 
   cron: process.env.CRON_GENERATOR || false,

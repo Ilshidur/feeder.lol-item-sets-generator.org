@@ -29,6 +29,7 @@ module.exports = {
         CRON_GENERATOR: '0 */2 * * *', // Every 2 hours
         REDIS_PORT: 6379,
         REDIS_HOST: 'localhost',
+        REDIS_TOOLTIPS_PREFIX: 'feeder.lol-item-sets-generator.org-tooltips_',
         KEY_CHAMPIONGG: 'API_KEY',
         KEY_RIOT: 'API_KEY',
         GENERATE_SPRITES: true

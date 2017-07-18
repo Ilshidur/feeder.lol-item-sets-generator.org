@@ -14,9 +14,9 @@ router.use(leagueTips(config.key.riot, leagueTips.REGIONS.EUROPE_WEST, {
   cache: {
     TTL: 60 * 60 * 48, // 48 hours
     redis: {
-      host: 'localhost',
-      port: 6379,
-      prefix: 'league-tooltips-demo_'
+      host: config.redis.host,
+      port: config.redis.port,
+      prefix: config.redis.tooltipsPrefix
     }
   }
 }));
