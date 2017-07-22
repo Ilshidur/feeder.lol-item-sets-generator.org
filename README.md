@@ -11,7 +11,7 @@
 [![dependency status][dependency-badge]][dependency-url]
 [![devdependency status][devdependency-badge]][devdependency-url]
 
-This project builds the best League of Legends recommended items for the website LoL Item Sets Generator.
+**This project builds the best League of Legends recommended items for the website LoL Item Sets Generator.**
 
 ## What this code does
 
@@ -21,15 +21,16 @@ This project builds the best League of Legends recommended items for the website
 * generates the champions/items sprites using [league-sprites](https://www.npmjs.com/package/league-sprites) and serves them with [express](https://github.com/expressjs/express)
 * provides the tooltips API to lol-item-sets-generator.org using [league-tooltips](https://www.npmjs.com/package/league-tooltips) and [express](https://github.com/expressjs/express)
 
-## Contribute
+## Development
 
 **REQUIRED** :
-* [node-canvas](https://github.com/Automattic/node-canvas) (used by [node-sprite-generator](https://github.com/selaux/node-sprite-generator))
-* Redis
+* [node-canvas](https://github.com/Automattic/node-canvas) (used by [node-sprite-generator](https://github.com/selaux/node-sprite-generator)), installation instructions [**here**](https://github.com/Automattic/node-canvas/wiki/_pages)
+* [Redis](https://redis.io)
+* [PhantomJs](http://phantomjs.org)
 
 **Installing** :
 
-Installation instructions [**here**](https://github.com/Automattic/node-canvas/wiki/_pages).
+* Install the latest PhantomJS version using [these instructions](https://stackoverflow.com/a/14267295/4022804).
 
 ```bash
 git clone https://github.com/Ilshidur/feeder.lol-item-sets-generator.org feeder.lol-item-sets-generator.org
@@ -39,8 +40,10 @@ cd $_
 **Running the tool** :
 
 * Build : `npm run build`
-* Set the required env variables as shown in the ecosystem.samle.json5
-* Start : `npm start`
+* Set the required env variables as shown in the `ecosystem.config.sample.js` file
+* Start :
+  * Website : `npm start`
+  * Worker : `npm run worker`
 
 ## License
 
