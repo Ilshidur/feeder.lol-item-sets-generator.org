@@ -18,7 +18,7 @@ const PROD = config.env === 'production';
 const DATA_GETTERS = {
   'riot': require('./sources/riot.js').default,
   'championgg': require('./sources/championgg.js').default,
-  // 'probuilds': require('./sources/probuilds.js').default
+  'probuilds': require('./sources/probuilds.js').default
 };
 const getDatas = (source) => { return DATA_GETTERS[source]; };
 
