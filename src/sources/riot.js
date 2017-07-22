@@ -1,9 +1,6 @@
 import _ from 'lodash';
 import api from '../riot_api';
-import { outputLog } from '../log.js';
-import config from '../config';
-
-const PROD = config.env === 'production';
+import { outputLog } from '../log';
 
 if (!process.env.KEY_RIOT) {
   console.log('No riot key defined.');
@@ -11,7 +8,6 @@ if (!process.env.KEY_RIOT) {
 }
 
 const getDatas = () => new Promise(async (resolve, reject) => {
-
   // Get the patch
   outputLog('[Riot] Retrieving patch ...');
   let riotPatch = 'nopatch';
@@ -29,17 +25,15 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   try {
     const championsRqst = await api.Static.champions();
     champions = _(championsRqst.data)
-      .mapValues(c => {
-        return {
-          id: c.id,
-          key: c.key,
-          name: c.name,
-          importPatch: riotPatch,
-          importDate: Date.now()
-        };
-      })
+      .mapValues(c => ({
+        id: c.id,
+        key: c.key,
+        name: c.name,
+        importPatch: riotPatch,
+        importDate: Date.now(),
+      }))
       .sortBy('name')
-      .map((champion, index) => { return { ...champion, index: index }; })
+      .map((champion, index) => ({ ...champion, index }))
       .value();
   } catch (e) {
     reject(e);
@@ -52,16 +46,14 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   try {
     const itemsRqst = await api.Static.items();
     items = _(itemsRqst.data)
-      .mapValues(i => {
-        return {
-          id: i.id,
-          name: i.name,
-          importPatch: riotPatch,
-          importDate: Date.now()
-        };
-      })
+      .mapValues(i => ({
+        id: i.id,
+        name: i.name,
+        importPatch: riotPatch,
+        importDate: Date.now(),
+      }))
       .sortBy('name')
-      .map((i, index) => { return { ...i, index: index }; })
+      .map((i, index) => ({ ...i, index }))
       .value();
   } catch (e) {
     reject(e);
@@ -70,12 +62,11 @@ const getDatas = () => new Promise(async (resolve, reject) => {
 
   const datas = {
     patch: riotPatch,
-    champions: champions,
-    items: items
+    champions,
+    items,
   };
 
   resolve(datas);
-
 });
 
 export default getDatas;

@@ -8,7 +8,7 @@ const queue = kue.createQueue({
     port: config.redis.port,
     host: config.redis.host,
     // auth: 'password'
-  }
+  },
 });
 
 export default queue;

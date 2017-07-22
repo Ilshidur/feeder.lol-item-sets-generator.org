@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-var SetSchema = new mongoose.Schema({
+const SetSchema = new mongoose.Schema({
   title: String,
   champion: String,
   role: String,
@@ -9,16 +9,16 @@ var SetSchema = new mongoose.Schema({
   itemBlocks: [new mongoose.Schema({
     items: [new mongoose.Schema({
       count: Number,
-      id: String
+      id: String,
     })],
-    type: String
-  })]
+    type: String,
+  })],
 });
 
-var SetsSchema = new mongoose.Schema({
+const SetsSchema = new mongoose.Schema({
   generationDate: Date,
   patchVersion: String,
-  sets: [SetSchema]
+  sets: [SetSchema],
 });
 
 export default mongoose.model('ItemSet', SetsSchema);

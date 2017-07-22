@@ -1,27 +1,41 @@
 import gulp from 'gulp';
 import babel from 'gulp-babel';
+import eslint from 'gulp-eslint';
 import runSequence from 'run-sequence';
 import del from 'del';
 
-gulp.task('clean', () => {
-  return del([
-    'dist'
-  ]);
-});
+gulp.task('clean', () =>
+  del([
+    'dist',
+  ]),
+);
 
-gulp.task('build', () => {
-  return gulp.src('src/**/*.js')
+gulp.task('lint', () =>
+  gulp
+    .src([
+      'src/**/*.js',
+      '!node_modules/**',
+    ])
+    .pipe(eslint())
+    .pipe(eslint.format('node_modules/eslint-formatter-pretty'))
+    .pipe(eslint.failAfterError()),
+);
+
+gulp.task('build', () =>
+  gulp
+    .src('src/**/*.js')
     .pipe(babel({
       presets: ['es2015'],
-      plugins: ['transform-runtime']
+      plugins: ['transform-runtime'],
     }))
-    .pipe(gulp.dest('dist'));
-});
+    .pipe(gulp.dest('dist')),
+);
 
 gulp.task('default', (callback) => {
   runSequence(
     'clean',
+    'lint',
     'build',
-    callback
+    callback,
   );
 });

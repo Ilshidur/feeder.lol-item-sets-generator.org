@@ -4,6 +4,7 @@ import config from './config';
 import routes from './routes';
 
 const version = require('../package.json').version;
+
 console.log(`Running app version : ${version}.`);
 
 // ==== Server ====
@@ -17,5 +18,5 @@ app.use('/tooltips', routes.tooltips);
 app.use('/', routes.index);
 
 app.listen(config.port, () => {
-  console.log('[SERVER] Listening on port ' + config.port);
+  console.log(`[SERVER] Listening on port ${config.port}`);
 });

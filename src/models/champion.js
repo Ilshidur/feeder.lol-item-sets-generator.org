@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 
-var ChampionSchema = new mongoose.Schema({
+const ChampionSchema = new mongoose.Schema({
   index: Number,
   id: Number,
   key: String,
   name: String,
   importPatch: String,
-  importDate: Date
+  importDate: Date,
 });
 
 export default mongoose.model('Champion', ChampionSchema);

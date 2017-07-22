@@ -1,6 +1,6 @@
 import Xray from 'x-ray';
 import phantom from 'x-ray-phantom';
-import { outputLog } from '../log.js';
+import { outputLog } from '../log';
 import config from '../config';
 
 const PROD = config.env === 'production';
@@ -9,7 +9,7 @@ const getChampions = () => new Promise((resolve, reject) => {
   let x;
   try {
     x = Xray().driver(phantom({
-      webSecurity: false
+      webSecurity: false,
     }));
   } catch (e) {
     reject(e);
@@ -29,11 +29,15 @@ const getChampions = () => new Promise((resolve, reject) => {
     reject(e);
   }
 });
-const getChampionBuildOrder = (champStringID) => new Promise((resolve, reject) => {
+const getChampionBuildOrder = champStringID => new Promise((resolve, reject) => {
+  if (!PROD) {
+    outputLog(`[ProBuilds] Getting ${champStringID} ...`);
+  }
+
   let x;
   try {
     x = Xray().driver(phantom({
-      webSecurity: false
+      webSecurity: false,
     }));
   } catch (e) {
     reject(e);
@@ -46,9 +50,10 @@ const getChampionBuildOrder = (champStringID) => new Promise((resolve, reject) =
         reject(err);
         return;
       }
-      const ids = result.map(i => {
-        if (i) return i;
-      });
+      const ids = result.map(i => i || 0);
+      if (!PROD) {
+        outputLog(`[ProBuilds] Getting ${champStringID} : done !`);
+      }
       resolve(ids);
     });
   } catch (e) {
@@ -57,45 +62,41 @@ const getChampionBuildOrder = (champStringID) => new Promise((resolve, reject) =
 });
 
 const getDatas = () => new Promise(async (resolve, reject) => {
-    outputLog('[ProBuilds] Retrieving the champions list ...');
-    let champs;
+  outputLog('[ProBuilds] Retrieving the champions list ...');
+  let champs;
+  try {
+    champs = await getChampions();
+  } catch (e) {
+    reject(e);
+    return;
+  }
+  outputLog('[ProBuilds] Retrieving the champions list : done !');
+
+  if (config.env === 'test') {
+    champs = [champs[0]];
+  }
+
+  outputLog('[ProBuilds] Retrieving the champions datas ...');
+  const builds = {};
+  // eslint-disable-next-line no-restricted-syntax
+  for (const champ of champs) {
+    let build;
     try {
-      champs = await getChampions();
+      // eslint-disable-next-line no-await-in-loop
+      build = await getChampionBuildOrder(champ);
     } catch (e) {
       reject(e);
       return;
     }
-    outputLog('[ProBuilds] Retrieving the champions list : done !');
+    builds[champ] = { build };
+  }
+  outputLog('[ProBuilds] Retrieving the champions datas : done !');
 
-    if (config.env === 'test') {
-      champs = [champs[0]];
-    }
+  const datas = {
+    builds,
+  };
 
-    outputLog('[ProBuilds] Retrieving the champions datas ...');
-    let builds = {};
-    for (let champ of champs) {
-      if (!PROD) {
-        outputLog(`[ProBuilds] Getting ${champ} ...`);
-      }
-      let build;
-      try {
-        build = await getChampionBuildOrder(champ);
-      } catch (e) {
-        reject(e);
-        return;
-      }
-      builds[champ] = {
-        build: build
-      };
-    }
-    outputLog('[ProBuilds] Retrieving the champions datas : done !');
-
-    const datas = {
-      builds: builds
-    };
-
-    resolve(datas);
-
+  resolve(datas);
 });
 
 export default getDatas;

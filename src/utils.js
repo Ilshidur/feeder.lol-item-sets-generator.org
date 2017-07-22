@@ -17,14 +17,17 @@ const saveFile = (file, content) => new Promise((resolve, reject) => {
 
 const zipItems = async () => new Promise((resolve, reject) => {
   const outputFolder = path.join(config.rootPath, config.path.sets.outputFolder);
-  zipFolder(path.join(outputFolder, config.path.sets.saveFolderTmp), path.join(outputFolder, config.path.sets.zipFileName), (err) => {
-    del.sync(path.join(outputFolder, config.path.sets.saveFolderTmp));
-    if (err) {
-      reject(err);
-    } else {
-      resolve();
-    }
-  });
+  zipFolder(
+    path.join(outputFolder, config.path.sets.saveFolderTmp),
+    path.join(outputFolder, config.path.sets.zipFileName),
+    (err) => {
+      del.sync(path.join(outputFolder, config.path.sets.saveFolderTmp));
+      if (err) {
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
 });
 
 export { saveFile, zipItems };

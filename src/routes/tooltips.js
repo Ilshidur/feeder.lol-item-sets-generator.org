@@ -9,20 +9,20 @@ router.use(leagueTips(config.key.riot, leagueTips.REGIONS.EUROPE_WEST, {
   cors: {
     origin: 'https://lol-item-sets-generator.org',
     methods: 'GET',
-    headers: 'Content-Type'
+    headers: 'Content-Type',
   },
   cache: {
     TTL: 60 * 60 * 48, // 48 hours
     redis: {
       host: config.redis.host,
       port: config.redis.port,
-      prefix: config.redis.tooltipsPrefix
-    }
+      prefix: config.redis.tooltipsPrefix,
+    },
   },
-  prod: config.env === 'production'
+  prod: config.env === 'production',
 }));
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
   res.send('Tooltips.');
 });
 

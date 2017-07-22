@@ -5,6 +5,7 @@
   "description": "",
   "scripts": {
     "build": "gulp",
+    "lint": "gulp lint",
     "start": "node dist/app.js",
     "worker": "node dist/worker.js",
     "generator": "node dist/scripts/generate.js",
@@ -59,8 +60,12 @@
     "babel-preset-stage-0": "^6.24.1",
     "del": "^3.0.0",
     "eslint": "^4.3.0",
+    "eslint-config-airbnb": "15.0.2",
+    "eslint-formatter-pretty": "^1.1.0",
+    "eslint-plugin-import": "^2.7.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^4.0.0",
     "run-sequence": "^2.0.0"
   },
   "snyk": true

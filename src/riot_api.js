@@ -16,9 +16,9 @@ const api = new KindredApi.Kindred({
   spread: false,
   retryOptions: {
     auto: true,
-    numberOfRetriesBeforeBreak: 3
+    numberOfRetriesBeforeBreak: 3,
   },
-  timeout: 5000
+  timeout: 5000,
 });
 
 export default api;

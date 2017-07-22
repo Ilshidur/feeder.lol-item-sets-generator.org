@@ -6,17 +6,19 @@ import queue from './kue';
 import config from './config';
 
 console.log('__ AUTOMATED GENERATION __');
+
 const version = require('../package.json').version;
+
 console.log(`Running worker version : ${version}.`);
 
 // ==== Generator ====
 
 const onDeath = death({ uncaughtException: true });
-onDeath(async function(signal, err) {
+onDeath(async (/* signal, err */) => {
   console.log('Shutting down MongoDB connection ...');
   await disconnectMongo();
   console.log('Shuting down Kue ...');
-  queue.shutdown(5000, function(err) {
+  queue.shutdown(5000, (err) => {
     if (err) {
       console.log('Kue shutdown error : ', err);
     }

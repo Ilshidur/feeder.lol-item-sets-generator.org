@@ -1,8 +1,7 @@
 import { CronJob } from 'cron';
 import { outputErr } from './log';
 
-async function cronTask (task, cron) {
-
+async function cronTask(task, cron) {
   const runTask = async () => {
     try {
       await task();
@@ -19,10 +18,9 @@ async function cronTask (task, cron) {
     const cronDone = () => {
       console.log('CRON done.');
     };
-    /*const job = */ new CronJob(cron, runTask, cronDone, true, 'Europe/Paris');
+    /* const job = */ new CronJob(cron, runTask, cronDone, true, 'Europe/Paris'); // eslint-disable-line no-new
     console.log('Started CRON !');
   }
-
 }
 
 export default cronTask;
