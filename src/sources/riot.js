@@ -44,7 +44,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   } catch (e) {
     reject(e);
   }
-  outputLog(`[Riot] Retrieving champions : done !`);
+  outputLog(`[Riot] Retrieving champions : done ! (${champions.length})`);
 
   // Get the items
   outputLog('[Riot] Retrieving items ...');
@@ -66,7 +66,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   } catch (e) {
     reject(e);
   }
-  outputLog(`[Riot] Retrieving items : done !`);
+  outputLog(`[Riot] Retrieving items : done ! (${items.length})`);
 
   const datas = {
     patch: riotPatch,
