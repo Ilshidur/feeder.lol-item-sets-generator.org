@@ -169,7 +169,8 @@ const run = () => new Promise(async (resolve, reject) => {
 
   // Saving item sets
   outputLog('Generating and saving the sets ...');
-  await Promise.all(_.map(sortedSets, async (champData) => {
+  // eslint-disable-next-line no-restricted-syntax
+  for (const champData of sortedSets) {
     if (!PROD) {
       outputLog(`Generating ${champData.champion.key}/${champData.role} ...`);
     }
@@ -215,7 +216,7 @@ const run = () => new Promise(async (resolve, reject) => {
         }, {
           items: champData.trinkets ? formatItemsFromId([champData.trinkets.highestCount.item, ..._.without(trinketItems, champData.trinkets.highestCount.item), ...consumeItems]) : formatItemsFromId(consumeItems),
           // eslint-disable-next-line prefer-template
-          type: champData.trinkets ? 'Consumables | ' + _.find(datas.riot.items, item => item.id === champData.trinkets.highestCount.item).name + ' : ' + champData.trinkets.highestCount.winrate + '% win - ' + champData.trinkets.highestCount.games + ' games' : 'Trinkets not found',
+          type: champData.trinkets ? 'Consumables | ' + _.find(datas.riot.items, item => Number(item.id) === Number(champData.trinkets.highestCount.item)).name + ' : ' + champData.trinkets.highestCount.winrate + '% win - ' + champData.trinkets.highestCount.games + ' games' : 'Trinkets not found',
         }, {
           // TODO: Combine the items appearing twice or thrice in a row
           items: (datas.probuilds) ? formatItemsFromId(_.without(_.dropWhile(datas.probuilds.builds[champData.champion.key].build, item => item), undefined)) : formatItemsFromId(consumeItems),
@@ -232,6 +233,7 @@ const run = () => new Promise(async (resolve, reject) => {
         champion: fileData.champion,
         blocks: fileData.blocks,
       };
+      // eslint-disable-next-line no-await-in-loop
       await saveFile(path.join(config.path.sets.saveFolderTmp, config.path.sets.saveFolder, champData.champion.key, 'Recommended', `${riotPatch} ${champData.role}.json`), JSON.stringify(fileContent, null, '  '));
       itemSetsList.push({
         title: fileData.title,
@@ -249,7 +251,7 @@ const run = () => new Promise(async (resolve, reject) => {
     if (!PROD) {
       outputLog(`Generating ${champData.champion.key}/${champData.role} : done !`);
     }
-  }));
+  }
   outputLog(`Generating and saving the sets : done ! (total: ${sortedSets.length})`);
 
   itemSetsList = _.sortBy(itemSetsList, itemSet => itemSet.champion);
@@ -278,7 +280,8 @@ const run = () => new Promise(async (resolve, reject) => {
 
     const sprites = ['champions', 'items'];
 
-    await Promise.all(_.map(sprites, async (spriteType) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const spriteType of sprites) {
       let dataType = '';
       switch (spriteType) {
         case 'champions':
@@ -289,7 +292,7 @@ const run = () => new Promise(async (resolve, reject) => {
           break;
         default:
           reject(new Error(`Unknown sprite type : ${spriteType}`));
-          return false;
+          return;
       }
       const generatorOpts = {
         dataType,
@@ -322,14 +325,14 @@ const run = () => new Promise(async (resolve, reject) => {
       try {
         outputLog(`Generating the ${dataType} sprites ...`);
         const spritesGenerator = new SpriteGenerator(generatorOpts);
+        // eslint-disable-next-line no-await-in-loop
         await spritesGenerator.generate();
         outputLog(`Generating the ${dataType} sprites : done !`);
       } catch (e) {
         reject(e);
-        return false;
+        return;
       }
-      return true;
-    }));
+    }
 
     outputLog('Generation : done !');
   } else {
