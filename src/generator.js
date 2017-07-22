@@ -18,7 +18,7 @@ const PROD = config.env === 'production';
 const DATA_GETTERS = {
   'riot': require('./sources/riot.js').default,
   'championgg': require('./sources/championgg.js').default,
-  'probuilds': require('./sources/probuilds.js').default
+  // 'probuilds': require('./sources/probuilds.js').default
 };
 const getDatas = (source) => { return DATA_GETTERS[source]; };
 
@@ -150,6 +150,9 @@ const run = () => new Promise(async (resolve, reject) => {
 
   const sets = datas['championgg'].sets.map((champData) => {
     const champion = _(datas['riot'].champions).find(champion => champion.id === champData.champId);
+    if (!champion) {
+      console.error('champion not found, id : ' + champData.champId);
+    }
     champData.champion = champion;
     return champData;
   });
