@@ -304,6 +304,8 @@ const run = () => new Promise(async (resolve, reject) => {
     }
 
     outputLog('Generation : done !');
+  } else {
+    outputLog('Not generating the sprites.');
   }
 
   resolve();
