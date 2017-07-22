@@ -11,9 +11,9 @@ console.log(`[GENERATOR] Generator version : ${version}.`);
 // ==== Generator ====
 
 const onDeath = death({ uncaughtException: true });
-onDeath(function(signal, err) {
+onDeath(async function(signal, err) {
   console.log('Shutting down MongoDB connection ...');
-  disconnectMongo();
+  await disconnectMongo();
   console.log('Shuting down Kue ...');
   queue.shutdown(5000, function(err) {
     if (err) {

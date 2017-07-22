@@ -2,17 +2,14 @@ import mongoose from 'mongoose';
 import config from './config';
 import { outputErr } from './log';
 
-function connectMongo () {
-  mongoose.Promise = global.Promise;
-  mongoose.connect(config.mongo.uri, config.mongo.options);
-  mongoose.connection.on('error', err => {
-    outputErr(`MongoDB connection error : ${err}`);
-    process.exit(-1);
-  });
+mongoose.Promise = global.Promise;
+
+async function connectMongo () {
+  await mongoose.connect(config.mongo.uri, config.mongo.options);
 }
 
-function disconnectMongo () {
-  mongoose.disconnect();
+async function disconnectMongo () {
+  await mongoose.disconnect();
 }
 
 function findAndUpdateMongoDocument (doc, query, newData) {

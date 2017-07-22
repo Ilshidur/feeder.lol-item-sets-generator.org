@@ -14,12 +14,19 @@ const cronTask = () => {
   queue.watchStuckJobs(10000);
 
   queue.on('error', function(err) {
+    console.error(err);
     throw err;
   });
 
   queue.process('generator', async function(job, done) {
     console.log('Init MongoDB connection ...');
-    connectMongo();
+    try {
+      await connectMongo();
+    } catch (e) {
+      done(e);
+      console.error(e);
+      return;
+    }
     console.log('Init MongoDB connection : done !');
 
     try {
@@ -30,7 +37,7 @@ const cronTask = () => {
       return;
     } finally {
       console.log('Shutting down MongoDB connection ...');
-      disconnectMongo();
+      await disconnectMongo();
       console.log('Shutting down MongoDB connection : done !');
     }
 
@@ -59,9 +66,9 @@ const cronTask = () => {
       console.log(`Removing job ${job.id} : done !`);
     });
   }).on('failed attempt', function(errorMessage, doneAttempts) {
-    console.log('Job attempt failed.');
+    throw new Error('Job attempt failed.');
   }).on('failed', function(errorMessage) {
-    console.log('Job failed.');
+    throw new Error('Job jailed.');
   });
 };
 
