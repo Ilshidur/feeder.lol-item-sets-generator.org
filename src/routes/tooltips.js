@@ -18,7 +18,8 @@ router.use(leagueTips(config.key.riot, leagueTips.REGIONS.EUROPE_WEST, {
       port: config.redis.port,
       prefix: config.redis.tooltipsPrefix
     }
-  }
+  },
+  prod: config.env === 'production'
 }));
 
 router.get('/', (req, res, next) => {
