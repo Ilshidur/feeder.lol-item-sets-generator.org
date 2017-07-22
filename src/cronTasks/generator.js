@@ -32,8 +32,8 @@ const cronTask = () => {
     try {
       await runGenerator();
     } catch (e) {
-      done(e);
       console.error(e);
+      done(e);
       return;
     } finally {
       console.log('Shutting down MongoDB connection ...');
