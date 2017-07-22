@@ -18,12 +18,7 @@ const api = new KindredApi.Kindred({
     auto: true,
     numberOfRetriesBeforeBreak: 3
   },
-  timeout: 5000,
-  cache: new KindredApi.RedisCache({
-    host: config.redis.host,
-    port: config.redis.port,
-    keyPrefix: 'feeder.lol-item-sets-generator.org_'
-  })
+  timeout: 5000
 });
 
 export default api;
