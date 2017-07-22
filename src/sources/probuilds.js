@@ -3,13 +3,19 @@ import phantom from 'x-ray-phantom';
 import { outputLog } from '../log.js';
 import config from '../config';
 
-const x = Xray().driver(phantom({
-  webSecurity: false
-}));
-
 const PROD = config.env === 'production';
 
 const getChampions = () => new Promise((resolve, reject) => {
+  let x;
+  try {
+    x = Xray().driver(phantom({
+      webSecurity: false
+    }));
+  } catch (e) {
+    reject(e);
+    return;
+  }
+
   x('http://www.probuilds.net/champions', '.champion-results', ['li@data-id'])((err, result) => {
     if (err) {
       reject(err);
@@ -20,6 +26,16 @@ const getChampions = () => new Promise((resolve, reject) => {
   });
 });
 const getChampionBuildOrder = (champStringID) => new Promise((resolve, reject) => {
+  let x;
+  try {
+    x = Xray().driver(phantom({
+      webSecurity: false
+    }));
+  } catch (e) {
+    reject(e);
+    return;
+  }
+
   x(`http://www.probuilds.net/champions/details/${champStringID}`, '.build-list', ['div img@data-id'])((err, result) => {
     if (err) {
       reject(err);
@@ -33,7 +49,6 @@ const getChampionBuildOrder = (champStringID) => new Promise((resolve, reject) =
 });
 
 const getDatas = () => new Promise(async (resolve, reject) => {
-
     outputLog('[ProBuilds] Retrieving the champions list ...');
     let champs;
     try {
