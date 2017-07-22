@@ -16,14 +16,18 @@ const getChampions = () => new Promise((resolve, reject) => {
     return;
   }
 
-  x('http://www.probuilds.net/champions', '.champion-results', ['li@data-id'])((err, result) => {
-    if (err) {
-      reject(err);
-      return;
-    }
-    const stringIds = result.map(c => c.split('|')[0]);
-    resolve(stringIds);
-  });
+  try {
+    x('http://www.probuilds.net/champions', '.champion-results', ['li@data-id'])((err, result) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const stringIds = result.map(c => c.split('|')[0]);
+      resolve(stringIds);
+    });
+  } catch (e) {
+    reject(e);
+  }
 });
 const getChampionBuildOrder = (champStringID) => new Promise((resolve, reject) => {
   let x;
@@ -36,16 +40,20 @@ const getChampionBuildOrder = (champStringID) => new Promise((resolve, reject) =
     return;
   }
 
-  x(`http://www.probuilds.net/champions/details/${champStringID}`, '.build-list', ['div img@data-id'])((err, result) => {
-    if (err) {
-      reject(err);
-      return;
-    }
-    const ids = result.map(i => {
-      if (i) return i;
+  try {
+    x(`http://www.probuilds.net/champions/details/${champStringID}`, '.build-list', ['div img@data-id'])((err, result) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      const ids = result.map(i => {
+        if (i) return i;
+      });
+      resolve(ids);
     });
-    resolve(ids);
-  });
+  } catch (e) {
+    reject(e);
+  }
 });
 
 const getDatas = () => new Promise(async (resolve, reject) => {
