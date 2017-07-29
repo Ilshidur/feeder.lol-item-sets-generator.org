@@ -3767,9 +3767,22 @@ kind-of@^4.0.0:
   dependencies:
     is-buffer "^1.1.5"
 
-kindred-api@^2.0.67, kindred-api@^2.0.69, kindred-api@^2.0.71:
+kindred-api@^2.0.67, kindred-api@^2.0.71:
   version "2.0.71"
   resolved "https://registry.yarnpkg.com/kindred-api/-/kindred-api-2.0.71.tgz#513b47d7eb062394d49d5e0b24a6ac5e79a8a830"
+  dependencies:
+    chalk "2.0.1"
+    dotenv "^4.0.0"
+    double-ended-queue "^2.1.0-0"
+    istanbul "^0.4.5"
+    query-string "^4.3.2"
+    redis "^2.7.1"
+    request "^2.81.0"
+    xregexp "^3.1.1"
+
+kindred-api@^2.0.74:
+  version "2.0.74"
+  resolved "https://registry.yarnpkg.com/kindred-api/-/kindred-api-2.0.74.tgz#d2503006599d39eb857addb793baa69d24a494c1"
   dependencies:
     chalk "2.0.1"
     dotenv "^4.0.0"
@@ -3864,14 +3877,14 @@ league-sprites@^1.0.0:
     node-sprite-generator "^0.10.2"
     snyk "^1.36.2"
 
-league-tooltips@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/league-tooltips/-/league-tooltips-2.0.2.tgz#ee36a59ee2d2102e66367cf61f1eeb699fb53302"
+league-tooltips@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/league-tooltips/-/league-tooltips-2.0.3.tgz#56302bf0b048370086ef96c201e4694d9e88a5bf"
   dependencies:
     babel-polyfill "6.23.0"
     debug "2.6.8"
     express "4.15.3"
-    kindred-api "^2.0.69"
+    kindred-api "^2.0.74"
     lodash "4.17.4"
     whatwg-fetch "2.0.3"
 
