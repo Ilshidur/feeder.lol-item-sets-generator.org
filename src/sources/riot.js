@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import api from '../riot_api';
+import * as statsd from '../statsd';
 import { outputLog } from '../log';
 
 if (!process.env.KEY_RIOT) {
@@ -38,6 +39,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   } catch (e) {
     reject(e);
   }
+  statsd.setChampionsCount(champions.length);
   outputLog(`[Riot] Retrieving champions : done ! (${champions.length})`);
 
   // Get the items
@@ -58,6 +60,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   } catch (e) {
     reject(e);
   }
+  statsd.setItemsCount(items.length);
   outputLog(`[Riot] Retrieving items : done ! (${items.length})`);
 
   const datas = {

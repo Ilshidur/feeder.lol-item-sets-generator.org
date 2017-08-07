@@ -26,6 +26,11 @@ export default {
     tooltipsPrefix: process.env.REDIS_TOOLTIPS_PREFIX || 'feeder.lol-item-sets-generator.org-tooltips_',
   },
 
+  statsd: {
+    host: process.env.STATSD_HOST || 'localhost',
+    port: process.env.STATSD_PORT || 8125,
+  },
+
   cron: process.env.CRON_GENERATOR || false,
 
   path: {

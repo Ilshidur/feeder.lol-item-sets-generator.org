@@ -1,5 +1,6 @@
 import queue from '../kue';
 import runGenerator from '../generator';
+import * as statsd from '../statsd';
 import config from '../config';
 import { connectMongo, disconnectMongo } from '../db';
 
@@ -18,6 +19,8 @@ const cronTask = () => {
   });
 
   queue.process('generator', async (job, done) => {
+    statsd.startGenerationTimer();
+
     console.log('Init MongoDB connection ...');
     try {
       await connectMongo();
@@ -38,6 +41,9 @@ const cronTask = () => {
       console.log('Shutting down MongoDB connection ...');
       await disconnectMongo();
       console.log('Shutting down MongoDB connection : done !');
+
+      statsd.stopGenerationTimer();
+      statsd.registerGeneration();
     }
 
     done();
