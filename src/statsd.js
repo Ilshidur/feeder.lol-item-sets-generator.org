@@ -10,30 +10,35 @@ let generationDurationTimer = null;
 function registerGeneration() {
   if (config.statsd.enabled) {
     metrics.increment('generations_count');
+    console.log('Sent generations_count to statsd.');
   }
 }
 
-function setChampionsCount(championsCount) {
+function setRiotChampionsCount(championsCount) {
   if (config.statsd.enabled) {
-    metrics.count('generation_champions', championsCount);
+    metrics.count('generation_riot_champions', championsCount);
+    console.log('Sent generation_riot_champions to statsd.');
   }
 }
 
-function setItemsCount(itemsCount) {
+function setRiotItemsCount(itemsCount) {
   if (config.statsd.enabled) {
-    metrics.count('generation_items', itemsCount);
+    metrics.count('generation_riot_items', itemsCount);
+    console.log('Sent generation_riot_items to statsd.');
   }
 }
 
-function setBuildsCount(buildsCount) {
+function setGeneratedBuildsCount(buildsCount) {
   if (config.statsd.enabled) {
-    metrics.count('generation_builds', buildsCount);
+    metrics.count('generation_generated_builds', buildsCount);
+    console.log('Sent generation_generated_builds to statsd.');
   }
 }
 
 function startGenerationTimer() {
   if (config.statsd.enabled) {
     generationDurationTimer = metrics.createTimer('generation_duration');
+    console.log('Started generation_duration statsd timer.');
   }
 }
 
@@ -41,17 +46,20 @@ function stopGenerationTimer() {
   if (config.statsd.enabled && generationDurationTimer) {
     generationDurationTimer.stop();
     generationDurationTimer = null;
+    console.log('Stopped generation_duration statsd timer.');
   }
 }
 
-// TODO: Call 'close' :
-// https://github.com/dscape/lynx/blob/master/lib/lynx.js#L482
+function close() {
+  metrics.close();
+}
 
 export {
   registerGeneration,
-  setChampionsCount,
-  setItemsCount,
-  setBuildsCount,
+  setRiotChampionsCount,
+  setRiotItemsCount,
+  setGeneratedBuildsCount,
   startGenerationTimer,
   stopGenerationTimer,
+  close,
 };
