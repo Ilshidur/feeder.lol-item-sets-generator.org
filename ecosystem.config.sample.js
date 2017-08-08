@@ -32,6 +32,7 @@ module.exports = {
         REDIS_TOOLTIPS_PREFIX: 'feeder.lol-item-sets-generator.org-tooltips_',
         STATSD_HOST: 'localhost',
         STATSD_PORT: 8125,
+        STATSD_SCOPE: 'lol-item-sets-generator',
         KEY_CHAMPIONGG: 'API_KEY',
         KEY_RIOT: 'API_KEY',
         GENERATE_SPRITES: true,
