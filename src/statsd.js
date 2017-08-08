@@ -2,7 +2,7 @@ import Lynx from 'lynx';
 import config from './config';
 
 const metrics = new Lynx(config.statsd.host, config.statsd.port, {
-  scope: 'lol-item-sets-genrator',
+  scope: config.statsd.scope,
 });
 
 let generationDurationTimer = null;
