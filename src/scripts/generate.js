@@ -25,6 +25,7 @@ onDeath(async (/* signal, err */) => {
     }
     statsd.stopGenerationTimer();
     statsd.registerGeneration();
+    statsd.close();
 
     console.log('Exiting ...');
     process.exit(0);

@@ -44,6 +44,7 @@ const cronTask = () => {
 
       statsd.stopGenerationTimer();
       statsd.registerGeneration();
+      statsd.close();
     }
 
     done();

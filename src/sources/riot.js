@@ -39,7 +39,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   } catch (e) {
     reject(e);
   }
-  statsd.setChampionsCount(champions.length);
+  statsd.setRiotChampionsCount(champions.length);
   outputLog(`[Riot] Retrieving champions : done ! (${champions.length})`);
 
   // Get the items
@@ -60,7 +60,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   } catch (e) {
     reject(e);
   }
-  statsd.setItemsCount(items.length);
+  statsd.setRiotItemsCount(items.length);
   outputLog(`[Riot] Retrieving items : done ! (${items.length})`);
 
   const datas = {

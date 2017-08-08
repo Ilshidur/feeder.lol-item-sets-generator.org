@@ -253,7 +253,7 @@ const run = () => new Promise(async (resolve, reject) => {
       outputLog(`Generating ${champData.champion.key}/${champData.role} : done !`);
     }
   }
-  statsd.setBuildsCount(sortedSets.length);
+  statsd.setGeneratedBuildsCount(sortedSets.length);
   outputLog(`Generating and saving the sets : done ! (total: ${sortedSets.length})`);
 
   itemSetsList = _.sortBy(itemSetsList, itemSet => itemSet.champion);
