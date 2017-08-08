@@ -27,7 +27,7 @@ function setItemsCount(itemsCount) {
 
 function setBuildsCount(buildsCount) {
   if (config.statsd.enabled) {
-    metrics.count('generation_items', buildsCount);
+    metrics.count('generation_builds', buildsCount);
   }
 }
 
