@@ -28,7 +28,7 @@ export default {
 
   statsd: {
     enabled: !!process.env.STATSD_HOST,
-    scope: process.env.STATSD_SCOPE || 'lol-item-sets-genrator',
+    scope: process.env.STATSD_SCOPE || 'lol-item-sets-genrator',
     host: process.env.STATSD_HOST,
     port: process.env.STATSD_PORT,
   },
