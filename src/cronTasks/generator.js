@@ -51,7 +51,7 @@ const cronTask = () => {
 
   const job = queue
     .create('generator')
-    .ttl(1000 * 60 * 30) // 30 minutes timeout
+    .ttl(1000 * 60 * 40) // 40 minutes timeout
     .removeOnComplete(true)
     .save((err) => {
       if (err) {
