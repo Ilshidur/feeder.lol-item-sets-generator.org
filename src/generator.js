@@ -6,6 +6,7 @@ import del from 'delete';
 import { Generator as SpriteGenerator } from 'league-sprites';
 import { saveFile, zipItems } from './utils';
 import { outputLog } from './log';
+import * as statsd from 'statsd';
 import { findAndUpdateMongoDocument, saveMongoDocument } from './db';
 import ItemSetDocument from './models/item_set';
 import ChampionDocument from './models/champion';
@@ -252,6 +253,7 @@ const run = () => new Promise(async (resolve, reject) => {
       outputLog(`Generating ${champData.champion.key}/${champData.role} : done !`);
     }
   }
+  statsd.setBuildsCount(sortedSets.length);
   outputLog(`Generating and saving the sets : done ! (total: ${sortedSets.length})`);
 
   itemSetsList = _.sortBy(itemSetsList, itemSet => itemSet.champion);
