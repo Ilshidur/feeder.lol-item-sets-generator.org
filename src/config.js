@@ -27,8 +27,9 @@ export default {
   },
 
   statsd: {
-    host: process.env.STATSD_HOST || 'localhost',
-    port: process.env.STATSD_PORT || 8125,
+    enabled: !!process.env.STATSD_HOST,
+    host: process.env.STATSD_HOST,
+    port: process.env.STATSD_PORT,
   },
 
   cron: process.env.CRON_GENERATOR || false,
