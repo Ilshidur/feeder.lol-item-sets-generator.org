@@ -10,28 +10,28 @@ let generationDurationTimer = null;
 function registerGeneration() {
   if (config.statsd.enabled) {
     metrics.increment('generations_count');
-    console.log('Sent generations_count to statsd.');
+    console.log('Incremented generations_count to statsd.');
   }
 }
 
 function setRiotChampionsCount(championsCount) {
   if (config.statsd.enabled) {
     metrics.count('generation_riot_champions', championsCount);
-    console.log('Sent generation_riot_champions to statsd.');
+    console.log(`Sent generation_riot_champions to statsd ${championsCount}.`);
   }
 }
 
 function setRiotItemsCount(itemsCount) {
   if (config.statsd.enabled) {
     metrics.count('generation_riot_items', itemsCount);
-    console.log('Sent generation_riot_items to statsd.');
+    console.log(`Sent generation_riot_items to statsd ${itemsCount}.`);
   }
 }
 
 function setGeneratedBuildsCount(buildsCount) {
   if (config.statsd.enabled) {
     metrics.count('generation_generated_builds', buildsCount);
-    console.log('Sent generation_generated_builds to statsd.');
+    console.log(`Sent generation_generated_builds to statsd ${buildsCount}.`);
   }
 }
 
