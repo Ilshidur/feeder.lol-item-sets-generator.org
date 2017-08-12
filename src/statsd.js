@@ -3,6 +3,9 @@ import config from './config';
 
 const metrics = new Lynx(config.statsd.host, config.statsd.port, {
   scope: config.statsd.scope,
+  on_error: (err) => {
+    console.error(err.message);
+  },
 });
 
 let generationDurationTimer = null;
