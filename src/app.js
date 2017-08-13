@@ -3,6 +3,7 @@ import express from 'express';
 import expressStatsd from 'express-statsd';
 import config from './config';
 import routes from './routes';
+import { client } from './statsd';
 
 const version = require('../package.json').version;
 
@@ -22,11 +23,7 @@ const app = express();
 
 if (config.statsd.enabled) {
   app.use(expressStatsd({
-    client: {
-      host: config.statsd.host,
-      port: config.statsd.port,
-      scope: config.statsd.scope,
-    },
+    client,
   }));
 }
 
