@@ -4,6 +4,12 @@ import * as statsd from '../statsd';
 import config from '../config';
 import { connectMongo, disconnectMongo } from '../db';
 
+function wait(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 const cronTask = () => {
   if (config.env === 'production') {
     console.log('Production mode.');
@@ -44,6 +50,9 @@ const cronTask = () => {
 
       statsd.stopGenerationTimer();
       statsd.registerGeneration();
+      // Wait 2s for the client to send the datas.
+      // That's because statsd UDP calls are asynchronous (fire-and-forget).
+      await wait(2000);
       statsd.close();
     }
 
