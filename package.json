@@ -34,6 +34,7 @@
     "death": "^1.1.0",
     "delete": "^1.1.0",
     "express": "^4.15.3",
+    "express-statsd": "^0.3.0",
     "fs-extra": "^4.0.0",
     "kindred-api": "^2.0.71",
     "kue": "^0.11.6",

@@ -2253,6 +2253,13 @@ expand-tilde@^2.0.0:
   dependencies:
     homedir-polyfill "^1.0.1"
 
+express-statsd@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/express-statsd/-/express-statsd-0.3.0.tgz#cb60b8e4f633adc7eaaefb5819698b469c00b1bd"
+  dependencies:
+    lynx "~0.0.11"
+    obj-extend "~0.1.0"
+
 express@4.15.3, express@^4.12.2, express@^4.15.3:
   version "4.15.3"
   resolved "https://registry.yarnpkg.com/express/-/express-4.15.3.tgz#bab65d0f03aa80c358408972fc700f916944b662"
@@ -4151,6 +4158,13 @@ lynx@^0.2.0:
     mersenne "~0.0.3"
     statsd-parser "~0.0.4"
 
+lynx@~0.0.11:
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/lynx/-/lynx-0.0.11.tgz#2cfa14e443fd2d92a59b779f41567ce1cc6965a3"
+  dependencies:
+    mersenne "~0.0.3"
+    statsd-parser "~0.0.4"
+
 make-dir@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-1.0.0.tgz#97a011751e91dd87cfadef58832ebb04936de978"
@@ -4574,6 +4588,10 @@ number-is-nan@^1.0.0:
 oauth-sign@~0.8.1:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
+
+obj-extend@~0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/obj-extend/-/obj-extend-0.1.0.tgz#bb448a4775fb95eb34a781f908bbac2df23dbb5b"
 
 object-assign@^2.0.0:
   version "2.1.1"
