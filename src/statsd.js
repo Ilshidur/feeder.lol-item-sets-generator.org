@@ -1,7 +1,9 @@
 import Lynx from 'lynx';
+import dgram from 'dgram';
 import config from './config';
 
 const client = new Lynx(config.statsd.host, config.statsd.port, {
+  socket: dgram.createSocket('udp4'),
   scope: config.statsd.scope,
   on_error: (err) => {
     console.error(err.message);
