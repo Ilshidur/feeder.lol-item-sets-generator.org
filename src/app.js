@@ -20,7 +20,15 @@ function statsd(scope) {
 
 const app = express();
 
-app.use(expressStatsd());
+if (config.statsd.enabled) {
+  app.use(expressStatsd({
+    client: {
+      host: config.statsd.host,
+      port: config.statsd.port,
+      scope: config.statsd.scope,
+    },
+  }));
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 
