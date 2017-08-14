@@ -17,6 +17,9 @@ module.exports = {
         NODE_ENV: 'production',
         HOST: 'http://domain.tld',
         PORT: 9000,
+        STATSD_HOST: 'localhost',
+        STATSD_PORT: 8125,
+        STATSD_SCOPE: 'lol-item-sets-generator',
       },
       args: ['--release'],
       watch: false,
@@ -48,8 +51,8 @@ module.exports = {
       args: ['--release'],
       watch: false,
       append_env_to_name: true,
-    }
+    },
 
-  ]
+  ],
 
 };
