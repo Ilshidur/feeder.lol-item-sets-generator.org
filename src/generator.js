@@ -274,7 +274,12 @@ const run = () => new Promise(async (resolve, reject) => {
   outputLog('Saving the sets : done !');
 
   outputLog('Zipping the sets ...');
-  await zipItems();
+  try {
+    await zipItems();
+  } catch (e) {
+    reject(e);
+    return;
+  }
   outputLog('Zipping the sets : done !');
 
   if (config.generateSprites) {
