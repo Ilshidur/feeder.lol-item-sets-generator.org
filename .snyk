@@ -21,3 +21,5 @@ patch:
         patched: '2017-06-01T07:54:09.502Z'
     - x-ray > x-ray-crawler > ms:
         patched: '2017-06-01T07:54:09.502Z'
+    - phantomjs-prebuilt > extract-zip > debug > ms:
+        patched: '2017-08-16T09:08:18.239Z'
