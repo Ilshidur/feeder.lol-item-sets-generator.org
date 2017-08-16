@@ -22,7 +22,7 @@ module.exports = {
         STATSD_SCOPE: 'lol-item-sets-generator',
         REDIS_PORT: 6379,
         REDIS_HOST: 'localhost',
-        REDIS_TOOLTIPS_PREFIX: 'feeder.lol-item-sets-generator.org-tooltips_',
+        REDIS_TOOLTIPS_PREFIX: 'feeder.lol-item-sets-generator.org_',
       },
       args: ['--release'],
       watch: false,
