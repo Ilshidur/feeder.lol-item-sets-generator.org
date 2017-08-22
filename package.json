@@ -1,7 +1,7 @@
 {
   "name": "feeder.lol-item-sets-generator.org",
   "private": true,
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "",
   "scripts": {
     "build": "gulp",
