@@ -30,10 +30,6 @@ const getChampions = () => new Promise((resolve, reject) => {
   }
 });
 const getChampionBuildOrder = champStringID => new Promise((resolve, reject) => {
-  if (!PROD) {
-    outputLog(`[ProBuilds] Getting ${champStringID} ...`);
-  }
-
   let x;
   try {
     x = Xray().driver(phantom({
@@ -51,9 +47,6 @@ const getChampionBuildOrder = champStringID => new Promise((resolve, reject) => 
         return;
       }
       const ids = result.map(i => i || 0);
-      if (!PROD) {
-        outputLog(`[ProBuilds] Getting ${champStringID} : done !`);
-      }
       resolve(ids);
     });
   } catch (e) {
@@ -78,9 +71,13 @@ const getDatas = () => new Promise(async (resolve, reject) => {
 
   outputLog('[ProBuilds] Retrieving the champions datas ...');
   const builds = {};
+  let champIndex = 1;
   // eslint-disable-next-line no-restricted-syntax
   for (const champ of champs) {
     let build;
+    if (!PROD) {
+      outputLog(`[ProBuilds] Getting ${champ} (${champIndex}/${champs.length + 1}) ...`);
+    }
     try {
       // eslint-disable-next-line no-await-in-loop
       build = await getChampionBuildOrder(champ);
@@ -88,7 +85,11 @@ const getDatas = () => new Promise(async (resolve, reject) => {
       reject(e);
       return;
     }
+    if (!PROD) {
+      outputLog(`[ProBuilds] Getting ${champ} (${champIndex}/${champs.length + 1}) : done !`);
+    }
     builds[champ] = { build };
+    champIndex += 1;
   }
   outputLog('[ProBuilds] Retrieving the champions datas : done !');
 

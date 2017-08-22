@@ -170,10 +170,11 @@ const run = () => new Promise(async (resolve, reject) => {
 
   // Saving item sets
   outputLog('Generating and saving the sets ...');
+  let championIndex = 1;
   // eslint-disable-next-line no-restricted-syntax
   for (const champData of sortedSets) {
     if (!PROD) {
-      outputLog(`Generating ${champData.champion.key}/${champData.role} ...`);
+      outputLog(`Generating ${champData.champion.key}/${champData.role} (${championIndex}/${sortedSets.length + 1}) ...`);
     }
     const trinketItems = [
       '3340', // Warding Totem
@@ -250,8 +251,9 @@ const run = () => new Promise(async (resolve, reject) => {
     }
     /* eslint-enable max-len */
     if (!PROD) {
-      outputLog(`Generating ${champData.champion.key}/${champData.role} : done !`);
+      outputLog(`Generating ${champData.champion.key}/${champData.role} (${championIndex}/${sortedSets.length + 1}): done !`);
     }
+    championIndex += 1;
   }
   statsd.setGeneratedBuildsCount(sortedSets.length);
   outputLog(`Generating and saving the sets : done ! (total: ${sortedSets.length})`);
