@@ -174,7 +174,7 @@ const run = () => new Promise(async (resolve, reject) => {
   // eslint-disable-next-line no-restricted-syntax
   for (const champData of sortedSets) {
     if (!PROD) {
-      outputLog(`Generating ${champData.champion.key}/${champData.role} (${championIndex}/${sortedSets.length + 1}) ...`);
+      outputLog(`Generating ${champData.champion.key}/${champData.role} (${championIndex}/${sortedSets.length}) ...`);
     }
     const trinketItems = [
       '3340', // Warding Totem
@@ -251,7 +251,7 @@ const run = () => new Promise(async (resolve, reject) => {
     }
     /* eslint-enable max-len */
     if (!PROD) {
-      outputLog(`Generating ${champData.champion.key}/${champData.role} (${championIndex}/${sortedSets.length + 1}): done !`);
+      outputLog(`Generating ${champData.champion.key}/${champData.role} (${championIndex}/${sortedSets.length}): done !`);
     }
     championIndex += 1;
   }
