@@ -76,7 +76,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   for (const champ of champs) {
     let build;
     if (!PROD) {
-      outputLog(`[ProBuilds] Getting ${champ} (${champIndex}/${champs.length + 1}) ...`);
+      outputLog(`[ProBuilds] Getting ${champ} (${champIndex}/${champs.length}) ...`);
     }
     try {
       // eslint-disable-next-line no-await-in-loop
@@ -86,7 +86,7 @@ const getDatas = () => new Promise(async (resolve, reject) => {
       return;
     }
     if (!PROD) {
-      outputLog(`[ProBuilds] Getting ${champ} (${champIndex}/${champs.length + 1}) : done !`);
+      outputLog(`[ProBuilds] Getting ${champ} (${champIndex}/${champs.length}) : done !`);
     }
     builds[champ] = { build };
     champIndex += 1;
