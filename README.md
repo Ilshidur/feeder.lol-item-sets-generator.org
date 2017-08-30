@@ -24,7 +24,7 @@
 ## Development
 
 **REQUIRED** :
-* [node-canvas](https://github.com/Automattic/node-canvas) (used by [node-sprite-generator](https://github.com/selaux/node-sprite-generator)), installation instructions [**here**](https://github.com/Automattic/node-canvas/wiki/_pages)
+* [node-canvas](https://github.com/Automattic/node-canvas) (used by [node-sprite-generator](https://github.com/selaux/node-sprite-generator)), installation instructions [**here**](https://github.com/selaux/node-sprite-generator#installation)
 * [Redis](https://redis.io)
 * [PhantomJs](http://phantomjs.org)
 
