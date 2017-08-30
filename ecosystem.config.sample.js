@@ -35,6 +35,9 @@ module.exports = {
         CRON_GENERATOR: '0 */2 * * *', // Every 2 hours
         KEY_CHAMPIONGG: 'API_KEY',
         KEY_RIOT: 'API_KEY',
+        REDIS_PORT: 6379,
+        REDIS_HOST: 'localhost',
+        REDIS_TOOLTIPS_PREFIX: 'feeder.lol-item-sets-generator.org-tooltips_',
         GENERATE_SPRITES: true,
       },
       env_development: {
@@ -44,9 +47,6 @@ module.exports = {
       env_production: {
         NODE_ENV: 'production',
         MONGO_URI: 'mongodb://localhost:27017/lol-item-sets-generator-org',
-        REDIS_PORT: 6379,
-        REDIS_HOST: 'localhost',
-        REDIS_TOOLTIPS_PREFIX: 'feeder.lol-item-sets-generator.org-tooltips_',
         STATSD_HOST: 'localhost',
         STATSD_PORT: 8125,
         STATSD_SCOPE: 'lol-item-sets-generator',
