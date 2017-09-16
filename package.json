@@ -9,7 +9,7 @@
     "start": "node dist/app.js",
     "worker": "node dist/worker.js",
     "generator": "node dist/scripts/generate.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "snyk test",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect"
   },
@@ -43,7 +43,7 @@
     "lodash": "^4.17.4",
     "lynx": "^0.2.0",
     "mongoose": "^4.11.3",
-    "phantomjs-prebuilt": "^2.1.14",
+    "phantomjs-prebuilt": "2.1.15",
     "semver-compare": "^1.0.0",
     "snyk": "^1.38.2",
     "x-ray": "^2.3.2",
