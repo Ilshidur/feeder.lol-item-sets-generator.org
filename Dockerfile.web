@@ -21,6 +21,8 @@ RUN yarn
 RUN yarn run build
 COPY . .
 
+ENV PORT 3000
+
 CMD ["pm2-docker", "start", "--name", "web", "dist/app.js"]
 # TODO: env vars & instances
 
