@@ -1,0 +1,10 @@
+src
+.editorconfig
+.eslint*
+.git
+.gitignore
+.jscrc
+deploy.sh
+Dockerfile*
+ecosystem.config*
+*.md

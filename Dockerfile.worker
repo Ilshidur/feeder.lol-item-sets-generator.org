@@ -1,0 +1,29 @@
+FROM mhart/alpine-node:8.5.0
+
+RUN apk add --no-cache \
+    build-base \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    bash
+    # imagemagick
+
+RUN mkdir -p /home/app/worker
+WORKDIR /home/app/worker
+RUN mkdir /var/shared/
+VOLUME /var/shared
+
+RUN yarn global add pm2@2.7.0 snyk
+RUN snyk auth $SNYK_TOKEN
+
+COPY package.json yarn.lock .snyk gulpfile.babel.js .babelrc ./
+
+RUN yarn
+RUN yarn run build
+COPY . .
+
+CMD ["pm2-docker", "start", "--name", "worker", "dist/worker.js"]
+# TODO: env vars & instances
+
+EXPOSE 3000
