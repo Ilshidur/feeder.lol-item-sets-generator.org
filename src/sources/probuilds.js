@@ -56,7 +56,7 @@ const getChampionBuildOrder = champStringID => new Promise((resolve, reject) => 
 
 const getDatas = () => new Promise(async (resolve, reject) => {
   outputLog('[ProBuilds] Retrieving the champions list ...');
-  let champs;
+  let champs = [];
   try {
     champs = await getChampions();
   } catch (e) {
