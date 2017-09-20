@@ -5,6 +5,8 @@ import config from './config';
 import routes from './routes';
 import { client } from './statsd';
 
+require('make-promises-safe');
+
 const version = require('../package.json').version;
 
 console.log(`Running app version : ${version}.`);
