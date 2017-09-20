@@ -4,6 +4,8 @@ import * as statsd from '../statsd';
 import config from '../config';
 import { connectMongo, disconnectMongo } from '../db';
 
+require('make-promises-safe');
+
 function wait(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
