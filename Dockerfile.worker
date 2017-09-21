@@ -6,8 +6,9 @@ RUN apk add --no-cache \
     cairo-dev \
     jpeg-dev \
     pango-dev \
-    bash
-    # imagemagick
+    bash \
+    imagemagick \
+    graphicsmagick
 
 RUN mkdir -p /home/app/worker
 WORKDIR /home/app/worker
