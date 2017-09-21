@@ -5,6 +5,8 @@
 #
 # Required :
 # * pm2
+# * node
+# * other dependencies refereced in the README.md file
 #
 
 cd `dirname $0`
