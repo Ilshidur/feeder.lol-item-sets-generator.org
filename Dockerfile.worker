@@ -24,7 +24,6 @@ RUN yarn
 RUN yarn run build
 COPY . .
 
-CMD ["pm2-docker", "start", "--name", "worker", "dist/worker.js"]
-# TODO: env vars & instances
+CMD ["pm2-docker", "start", "dist/worker.js"]
 
 EXPOSE 3000
