@@ -1,17 +1,9 @@
 FROM mhart/alpine-node:7.9.0
 
-RUN apk add --no-cache \
-    build-base \
-    g++ \
-    cairo-dev \
-    jpeg-dev \
-    pango-dev \
-    bash
-    # imagemagick
-
 RUN mkdir -p /home/app/web
 WORKDIR /home/app/web
 
+RUN npm i -g yarn
 RUN yarn global add pm2@2.7.0 snyk
 RUN snyk auth $SNYK_TOKEN
 
