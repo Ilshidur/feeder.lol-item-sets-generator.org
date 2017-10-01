@@ -1,5 +1,7 @@
 FROM mhart/alpine-node:7.9.0
 
+# TODO: Use Yarn instead of NPM
+
 RUN apk add --no-cache \
     build-base \
     g++ \
@@ -8,22 +10,25 @@ RUN apk add --no-cache \
     pango-dev \
     bash \
     imagemagick \
-    graphicsmagick
+    graphicsmagick \
+    git \
+    python \
+    curl && \
+    echo "Fixing PhantomJS" && \
+    curl -Ls "https://github.com/dustinblackman/phantomized/releases/download/2.1.1a/dockerized-phantomjs.tar.gz" | tar xz -C /
 
 RUN mkdir -p /home/app/worker
 WORKDIR /home/app/worker
 RUN mkdir /var/shared/
 VOLUME /var/shared
 
-RUN yarn global add pm2@2.7.0 snyk
+RUN npm install --global --quiet pm2@2.7.0 snyk phantomjs-prebuilt@2.1.15
 RUN snyk auth $SNYK_TOKEN
 
 COPY package.json yarn.lock .snyk gulpfile.babel.js .babelrc ./
 
-RUN yarn
-RUN yarn run build
+RUN npm install --quiet
+RUN npm run build
 COPY . .
 
 CMD ["pm2-docker", "start", "dist/worker.js"]
-
-EXPOSE 3000
