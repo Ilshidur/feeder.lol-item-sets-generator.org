@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Ilshidur/feeder.lol-item-sets-generator.org.git"
+    "url": "git+https://github.com/league-of-legends-devs/feeder.lol-item-sets-generator.org.git"
   },
   "author": "Ilshidur <ilshidur@gmail.com> (https://www.nicolas-coutin.fr)",
   "license": "MIT",
@@ -23,9 +23,9 @@
     "node": ">=7.9.0"
   },
   "bugs": {
-    "url": "https://github.com/Ilshidur/feeder.lol-item-sets-generator.org/issues"
+    "url": "https://github.com/league-of-legends-devs/feeder.lol-item-sets-generator.org/issues"
   },
-  "homepage": "https://github.com/Ilshidur/feeder.lol-item-sets-generator.org#readme",
+  "homepage": "https://github.com/league-of-legends-devs/feeder.lol-item-sets-generator.org#readme",
   "dependencies": {
     "@solomid/node-gg": "^3.0.1",
     "canvas": "^1.6.7",
