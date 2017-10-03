@@ -1,4 +1,19 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.7.1
 ignore: {}
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:minimatch:20160620':
+    - league-sprites > node-sprite-generator > glob > minimatch:
+        patched: '2017-10-03T08:01:37.561Z'
+    - zip-folder > archiver > glob > minimatch:
+        patched: '2017-10-03T08:01:37.561Z'
+  'npm:ms:20170412':
+    - x-ray > debug > ms:
+        patched: '2017-10-03T08:01:37.561Z'
+    - league-sprites > node-rest-client > debug > ms:
+        patched: '2017-10-03T08:01:37.561Z'
+    - league-sprites > node-sprite-generator > gm > debug > ms:
+        patched: '2017-10-03T08:01:37.561Z'
+    - x-ray > x-ray-crawler > ms:
+        patched: '2017-10-03T08:01:37.561Z'
