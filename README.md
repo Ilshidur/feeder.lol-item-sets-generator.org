@@ -33,7 +33,7 @@
 * Install the latest PhantomJS version using [these instructions](https://stackoverflow.com/a/14267295/4022804).
 
 ```bash
-git clone https://github.com/Ilshidur/feeder.lol-item-sets-generator.org feeder.lol-item-sets-generator.org
+git clone https://github.com/league-of-legends-devs/feeder.lol-item-sets-generator.org feeder.lol-item-sets-generator.org
 cd $_
 ```
 
