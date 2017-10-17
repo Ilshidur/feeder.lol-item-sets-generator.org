@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import api from '../riot_api';
+import api from '../riotApi';
 import * as statsd from '../statsd';
 import { outputLog } from '../log';
 
