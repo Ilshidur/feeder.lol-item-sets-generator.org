@@ -5,7 +5,7 @@ import config from './config';
 import routes from './routes';
 import { client } from './statsd';
 
-const version = require('../package.json').version;
+const { version } = require('../package.json');
 
 console.log(`Running app version : ${version}.`);
 

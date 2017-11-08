@@ -1,4 +1,4 @@
-import 'babel-polyfill';
+// import 'babel-polyfill';
 
 import _ from 'lodash';
 import path from 'path';
@@ -54,7 +54,7 @@ const formatItemsFromId = items => items.map(i => ({
 
 const run = () => new Promise(async (resolve, reject) => {
   // eslint-disable-next-line global-require
-  const version = require('../package.json').version;
+  const { version } = require('../package.json');
   console.log(`Version : ${version}.`);
 
   // == REQUESTS : Start.
@@ -99,7 +99,7 @@ const run = () => new Promise(async (resolve, reject) => {
       outputLog('Riot patch equals ChampionGG patch !');
     }
     // Saving the champions, items and patch version in the database
-    const champions = datas.riot.champions;
+    const { champions } = datas.riot;
     if (!PROD) {
       outputLog('Saving the champions in the database ...');
     }
@@ -115,7 +115,7 @@ const run = () => new Promise(async (resolve, reject) => {
     if (!PROD) {
       outputLog('Saving the champions in the database : done !');
     }
-    const items = datas.riot.items;
+    const { items } = datas.riot;
     if (!PROD) {
       outputLog('Saving the items in the database ...');
     }

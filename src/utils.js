@@ -27,7 +27,8 @@ const zipItems = async () => new Promise((resolve, reject) => {
       } else {
         resolve();
       }
-    });
+    },
+  );
 });
 
 export { saveFile, zipItems };

@@ -7,7 +7,7 @@ import * as statsd from '../statsd';
 
 console.log('__ MANUAL GENERATION __');
 
-const version = require('../../package.json').version;
+const { version } = require('../../package.json');
 
 console.log(`[GENERATOR] Generator version : ${version}.`);
 
