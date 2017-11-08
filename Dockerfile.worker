@@ -1,4 +1,5 @@
-FROM mhart/alpine-node:7.9.0
+# Previously 7.9.0
+FROM mhart/alpine-node:9.1.0
 
 # TODO: Use Yarn instead of NPM
 

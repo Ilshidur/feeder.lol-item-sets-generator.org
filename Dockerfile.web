@@ -1,4 +1,9 @@
-FROM mhart/alpine-node:7.9.0
+# Previously 7.9.0
+FROM mhart/alpine-node:9.1.0
+
+RUN apk add --no-cache \
+    build-base \
+    python
 
 RUN mkdir -p /home/app/web
 WORKDIR /home/app/web
