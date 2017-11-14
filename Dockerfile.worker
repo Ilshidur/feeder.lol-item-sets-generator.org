@@ -23,7 +23,7 @@ WORKDIR /home/app/worker
 RUN mkdir /var/shared/
 VOLUME /var/shared
 
-RUN npm install --global --quiet pm2@2.7.0 snyk phantomjs-prebuilt@2.1.15
+RUN npm install --global --quiet pm2@2.7.2 snyk phantomjs-prebuilt@2.1.16
 RUN snyk auth $SNYK_TOKEN
 
 COPY package.json yarn.lock .snyk gulpfile.babel.js .babelrc ./
