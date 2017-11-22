@@ -1,6 +1,7 @@
 import path from 'path';
 import express from 'express';
 import expressStatsd from 'express-statsd';
+import helmet from 'helmet';
 import config from './config';
 import routes from './routes';
 import { client } from './statsd';
@@ -20,6 +21,8 @@ function statsd(scope) {
 // ==== Server ====
 
 const app = express();
+
+app.use(helmet());
 
 if (config.statsd.enabled) {
   app.use(expressStatsd({
