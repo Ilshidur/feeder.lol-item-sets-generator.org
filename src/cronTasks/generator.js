@@ -2,15 +2,10 @@ import queue from '../kue';
 import runGenerator from '../generator';
 import * as statsd from '../statsd';
 import config from '../config';
-import { connectMongo, disconnectMongo } from '../db';
+import { connectMongo } from '../db';
+import lifecycle from '../lifecycle';
 
 require('make-promises-safe');
-
-function wait(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
 
 const cronTask = () => {
   if (config.env === 'production') {
@@ -45,18 +40,9 @@ const cronTask = () => {
       console.error(e);
       done(e);
       return;
-    } finally {
-      console.log('Shutting down MongoDB connection ...');
-      await disconnectMongo();
-      console.log('Shutting down MongoDB connection : done !');
-
-      statsd.stopGenerationTimer();
-      statsd.registerGeneration();
-      // Wait 2s for the client to send the datas.
-      // That's because statsd UDP calls are asynchronous (fire-and-forget).
-      await wait(2000);
-      statsd.close();
     }
+
+    await lifecycle.shutdown();
 
     done();
   });
