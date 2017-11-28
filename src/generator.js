@@ -176,6 +176,11 @@ const run = () => new Promise(async (resolve, reject) => {
     if (!PROD) {
       outputLog(`Generating ${champData.champion.key}/${champData.role} (${championIndex}/${sortedSets.length}) ...`);
     }
+    if (!champData.skills.highestCount || !champData.skills.highestWinrate) {
+      outputLog(`Skipping ${champData.champion.key}/${champData.role} (${championIndex}/${sortedSets.length}) (no data)`);
+      // eslint-disable-next-line no-continue
+      continue;
+    }
     const trinketItems = [
       '3340', // Warding Totem
       '3341', // Sweeping Lens
