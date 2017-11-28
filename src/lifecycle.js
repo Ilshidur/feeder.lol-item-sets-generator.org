@@ -2,17 +2,28 @@ import { disconnectMongo } from './db';
 import queue from './kue';
 import * as statsd from './statsd';
 
+function wait(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
 async function shutdown() {
   console.log('Shutting down MongoDB connection ...');
   await disconnectMongo();
   console.log('Shuting down Kue ...');
 
-  queue.shutdown(5000, (err) => {
+  queue.shutdown(5000, async (err) => {
     if (err) {
       console.log('Kue shutdown error : ', err);
     }
     statsd.stopGenerationTimer();
     statsd.registerGeneration();
+
+    // Wait 2s for the client to send the datas.
+    // That's because statsd UDP calls are asynchronous (fire-and-forget).
+    await wait(2000);
+
     statsd.close();
 
     console.log('Exiting ...');
