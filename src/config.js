@@ -15,9 +15,6 @@ export default {
 
   mongo: {
     uri: process.env.MONGO_URI || 'mongodb://localhost:27017/lol-item-sets-generator-org',
-    options: {
-      useMongoClient: true,
-    },
   },
 
   redis: {

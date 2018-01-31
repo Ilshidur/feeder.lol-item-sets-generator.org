@@ -4,7 +4,7 @@ import config from './config';
 mongoose.Promise = global.Promise;
 
 async function connectMongo() {
-  await mongoose.connect(config.mongo.uri, config.mongo.options);
+  await mongoose.connect(config.mongo.uri);
 }
 
 async function disconnectMongo() {
