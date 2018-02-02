@@ -20,7 +20,7 @@ const DATA_GETTERS = {
   /* eslint-disable global-require */
   riot: require('./sources/riot.js').default,
   championgg: require('./sources/championgg.js').default,
-  probuilds: require('./sources/probuilds.js').default,
+  // probuilds: require('./sources/probuilds.js').default,
   /* eslint-enable global-require */
 };
 const getDatas = source => DATA_GETTERS[source];
