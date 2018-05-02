@@ -235,12 +235,18 @@ const run = () => new Promise(async (resolve, reject) => {
       const fileContent = {
         title: fileData.title,
         type: 'custom',
-        map: 'any',
+        map: 'SR', // Summoner's Rift
         mode: 'any',
         priority: false,
         sortrank: 1,
         champion: fileData.champion,
         blocks: fileData.blocks,
+        // Additional attributes that are not documented (https://developer.riotgames.com/item-sets.html)
+        // but are required for the item sets to be parsed by the client.
+        associatedChampions: [champData.champId],
+        associatedMaps: [11], // Summoner's Rift
+        preferredItemSlots: [],
+        startedFrom: 'blank',
       };
       // eslint-disable-next-line no-await-in-loop
       await saveFile(path.join(config.path.sets.saveFolderTmp, config.path.sets.saveFolder, champData.champion.key, 'Recommended', `${riotPatch} ${champData.role}.json`), JSON.stringify(fileContent, null, '  '));
