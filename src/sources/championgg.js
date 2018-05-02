@@ -33,7 +33,6 @@ function getChampionsRolesList(apiKey) {
     gg.champions.all({
       // elo: 'PLATINUM,DIAMOND,MASTER,CHALLENGER'
       champData: 'hashes',
-      limit: 1000,
     }, (err, data) => {
       if (err) {
         reject(err);
