@@ -41,3 +41,4 @@ output
 ecosystem.config.js
 .idea
 .vscode
+.env

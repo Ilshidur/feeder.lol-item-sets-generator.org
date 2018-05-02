@@ -1,6 +1,8 @@
 import path from 'path';
 import url from 'url';
 
+require('dotenv').config();
+
 // eslint-disable-next-line prefer-template
 const LOCALHOST = 'localhost' + (process.env.PORT ? ':' + process.env.PORT : '');
 const HOST = process.env.HOST || LOCALHOST;
