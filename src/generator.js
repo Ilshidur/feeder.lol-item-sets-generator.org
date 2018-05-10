@@ -185,7 +185,7 @@ const run = () => new Promise(async (resolve, reject) => {
     }
     const trinketItems = [
       '3340', // Warding Totem
-      '3341', // Sweeping Lens
+      '3364', // Oracle Lens
       '3363', // Farsight Alteration
     ];
     const consumeItems = [
