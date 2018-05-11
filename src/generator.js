@@ -235,7 +235,7 @@ const run = () => new Promise(async (resolve, reject) => {
       const fileContent = {
         title: fileData.title,
         type: 'custom',
-        map: 'SR', // Summoner's Rift
+        map: 'any', // All maps
         mode: 'any',
         priority: false,
         sortrank: 1,
@@ -244,7 +244,7 @@ const run = () => new Promise(async (resolve, reject) => {
         // Additional attributes that are not documented (https://developer.riotgames.com/item-sets.html)
         // but are required for the item sets to be parsed by the client.
         associatedChampions: [champData.champId],
-        associatedMaps: [11], // Summoner's Rift
+        associatedMaps: [10, 11, 12], // All maps
         preferredItemSlots: [],
         startedFrom: 'blank',
       };
