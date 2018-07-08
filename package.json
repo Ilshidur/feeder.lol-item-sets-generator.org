@@ -11,7 +11,8 @@
     "generator": "node dist/scripts/generate.js",
     "test": "snyk test",
     "snyk-protect": "snyk protect",
-    "prepublish": "npm run snyk-protect"
+    "prepublish": "npm run snyk-protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -45,7 +46,7 @@
     "make-promises-safe": "^1.1.0",
     "mongoose": "^5.0.2",
     "semver-compare": "^1.0.0",
-    "snyk": "1.69.5",
+    "snyk": "^1.88.2",
     "x-ray": "2.3.2",
     "x-ray-phantom": "1.0.1",
     "zip-folder": "^1.0.0"
