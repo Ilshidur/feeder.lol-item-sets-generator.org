@@ -1,4 +1,30 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.1
+version: v1.12.0
 ignore: {}
-patch: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:debug:20170905':
+    - x-ray > debug:
+        patched: '2018-08-22T09:51:00.610Z'
+    - league-sprites > node-sprite-generator > gm > debug:
+        patched: '2018-08-22T09:51:00.610Z'
+    - league-sprites > node-rest-client > debug:
+        patched: '2018-08-22T09:51:00.610Z'
+  'npm:lodash:20180130':
+    - x-ray > x-ray-crawler > cheerio > lodash:
+        patched: '2018-08-22T09:51:00.610Z'
+  'npm:minimatch:20160620':
+    - league-sprites > node-sprite-generator > glob > minimatch:
+        patched: '2018-08-22T09:51:00.610Z'
+    - zip-folder > archiver > glob > minimatch:
+        patched: '2018-08-22T09:51:00.610Z'
+  'npm:ms:20170412':
+    - x-ray > debug > ms:
+        patched: '2018-08-22T09:51:00.610Z'
+    - league-sprites > node-rest-client > debug > ms:
+        patched: '2018-08-22T09:51:00.610Z'
+    - league-sprites > node-sprite-generator > gm > debug > ms:
+        patched: '2018-08-22T09:51:00.610Z'
+  'npm:tunnel-agent:20170305':
+    - league-sprites > imagemin-pngquant > pngquant-bin > bin-wrapper > download > caw > tunnel-agent:
+        patched: '2018-08-22T09:51:00.610Z'
