@@ -152,7 +152,7 @@ const run = () => new Promise(async (resolve, reject) => {
       outputLog('Saving the patch version in the database : done !');
     }
   } else if (!PROD) {
-    outputLog(`Riot patch : ${riotPatch}, ChampionGG patch ; ${championGGPatch} : not saving the champions/items`);
+    outputLog(`Riot patch : ${riotPatch}, ChampionGG patch : ${championGGPatch} : not saving the champions/items`);
   }
 
   // Temp list of SetSchema (./models/item_sets.js)
