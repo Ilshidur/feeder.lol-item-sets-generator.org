@@ -9,11 +9,18 @@ if (!process.env.KEY_RIOT) {
 }
 
 const getDatas = () => new Promise(async (resolve, reject) => {
+  const {
+    n: {
+      champion: championVersion,
+      item: itemVersion,
+    },
+  } = await api.DDragon.Realm.list();
+
   // Get the patch
   outputLog('[Riot] Retrieving patch ...');
   let riotPatch = 'nopatch';
   try {
-    const patches = await api.Static.versions();
+    const patches = await api.DDragon.Version.list();
     riotPatch = _.first(patches);
   } catch (e) {
     reject(e);
@@ -24,11 +31,11 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   outputLog('[Riot] Retrieving champions ...');
   let champions = [];
   try {
-    const championsRqst = await api.Static.champions();
+    const championsRqst = await api.DDragon.Champion.list().version(championVersion);
     champions = _(championsRqst.data)
       .mapValues(c => ({
-        id: c.id,
-        key: c.key,
+        id: Number(c.key), // key and id are reversed in the API
+        key: c.id, // key and id are reversed in the API
         name: c.name,
         importPatch: riotPatch,
         importDate: Date.now(),
@@ -46,14 +53,18 @@ const getDatas = () => new Promise(async (resolve, reject) => {
   outputLog('[Riot] Retrieving items ...');
   let items = [];
   try {
-    const itemsRqst = await api.Static.items();
+    const itemsRqst = await api.DDragon.Item.list().version(itemVersion);
     items = _(itemsRqst.data)
-      .mapValues(i => ({
-        id: i.id,
-        name: i.name,
-        importPatch: riotPatch,
-        importDate: Date.now(),
-      }))
+      .keys()
+      .map((itemId) => {
+        const item = itemsRqst.data[itemId];
+        return {
+          id: itemId,
+          name: item.name,
+          importPatch: riotPatch,
+          importDate: Date.now(),
+        };
+      })
       .sortBy('name')
       .map((i, index) => ({ ...i, index }))
       .value();
