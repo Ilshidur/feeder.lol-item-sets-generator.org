@@ -35,4 +35,9 @@ function saveMongoDocument(doc) {
   });
 }
 
-export { connectMongo, disconnectMongo, findAndUpdateMongoDocument, saveMongoDocument };
+export {
+  connectMongo,
+  disconnectMongo,
+  findAndUpdateMongoDocument,
+  saveMongoDocument,
+};
