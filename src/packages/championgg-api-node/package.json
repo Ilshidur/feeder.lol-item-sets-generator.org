@@ -1,0 +1,39 @@
+{
+  "name": "@solomid/node-gg",
+  "version": "3.0.0",
+  "description": "Node.js Client for champion.gg API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "lol",
+    "championgg",
+    "http",
+    "api"
+  ],
+  "contributors": [
+    {
+      "name": "Pradyuman Vig"
+    },
+    {
+      "name": "Alejandro Baltra"
+    }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/solomidnet/championgg-api-node.git"
+  },
+  "bugs": {
+    "url": "https://github.com/solomidnet/championgg-api-node/issues"
+  },
+  "homepage": "https://github.com/solomidnet/championgg-api-node#readme",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}

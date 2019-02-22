@@ -1,48 +1,35 @@
 import _ from 'lodash';
-import GG from '@solomid/node-gg';
 import semverSort from 'semver-compare';
 import { outputLog } from '../log';
 import config from '../config';
+import GG from '../packages/championgg-api-node';
 
 if (!process.env.KEY_CHAMPIONGG) {
   console.log('No championgg key defined.');
   throw new Error('No championgg key defined.');
 }
 
-function getPatch(apiKey) {
+async function getPatch(apiKey) {
   const gg = GG.init(apiKey);
 
-  return new Promise((resolve, reject) => {
-    gg.statistics.general({
-      // elo: 'PLATINUM,DIAMOND,MASTER,CHALLENGER'
-    }, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        const patchList = _.map(data, 'patch').sort(semverSort).reverse();
-        resolve(patchList[0]);
-      }
-    });
+  const data = await gg.statistics.general({
+    // elo: 'PLATINUM,DIAMOND,MASTER,CHALLENGER'
   });
+  const patchList = _.map(data, 'patch').sort(semverSort).reverse();
+  return patchList[0];
 }
 
-function getChampionsRolesList(apiKey) {
+async function getChampionsRolesList(apiKey) {
   const gg = GG.init(apiKey);
 
-  return new Promise((resolve, reject) => {
-    gg.champions.all({
-      // elo: 'PLATINUM,DIAMOND,MASTER,CHALLENGER'
-      champData: 'hashes',
-      // Limiting to 1000 because the default value is 100
-      limit: 1000,
-    }, (err, data) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(data);
-      }
-    });
+  const data = await gg.champions.all({
+    // elo: 'PLATINUM,DIAMOND,MASTER,CHALLENGER'
+    champData: 'hashes',
+    // Limiting to 1000 because the default value is 100
+    limit: 1000,
   });
+
+  return data;
 }
 
 const getDatas = () => new Promise(async (resolve, reject) => {
