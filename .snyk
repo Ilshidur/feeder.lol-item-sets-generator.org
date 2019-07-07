@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.3
+version: v1.13.5
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
@@ -31,3 +31,68 @@ patch:
   SNYK-JS-AXIOS-174505:
     - axios:
         patched: '2019-05-12T00:33:12.783Z'
+  SNYK-JS-LODASH-450202:
+    - league-sprites > snyk > snyk-php-plugin > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - kue > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > snyk > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - mongoose > async > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - x-ray > cheerio > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > snyk-php-plugin > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > async > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > snyk > inquirer > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > snyk > snyk-config > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - kayn > riot-ratelimiter-temp > request-promise > request-promise-core > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-tooltips > kindred-api > istanbul > handlebars > async > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - league-sprites > kindred-api > istanbul > handlebars > async > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - kue > pug > pug-filters > constantinople > babel-types > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - kue > pug > pug-code-gen > constantinople > babel-types > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
+    - kue > pug > pug-code-gen > pug-attrs > constantinople > babel-types > lodash:
+        patched: '2019-07-07T00:33:09.139Z'
