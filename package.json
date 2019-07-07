@@ -47,7 +47,7 @@
     "make-promises-safe": "^1.1.0",
     "mongoose": "^5.2.10",
     "semver-compare": "^1.0.0",
-    "snyk": "^1.163.3",
+    "snyk": "^1.192.3",
     "x-ray": "2.3.3",
     "x-ray-phantom": "1.0.1",
     "zip-folder": "^1.0.0"
