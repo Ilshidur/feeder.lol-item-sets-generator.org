@@ -29,7 +29,7 @@
   "homepage": "https://github.com/league-of-legends-devs/feeder.lol-item-sets-generator.org#readme",
   "dependencies": {
     "@solomid/node-gg": "^3.0.1",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "canvas": "^1.6.11",
     "cron": "^1.4.1",
     "delete": "^1.1.0",
